@@ -8,7 +8,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #f0f0f0; /* Set the background color you want */
+  background-color: #f0f0f0;
 }
 
 .flex-container {
@@ -17,20 +17,57 @@
 }
 
 .home-card {
-  position: center;
+  position: relative;
   width: 25%;
-  margin-top: 10%; /* Add some margin between the cards */
+  margin-top: 10%;
   margin-left: 38%;
-  background-color: transparent; /* Set background color to transparent */
+  background-color: transparent;
   border: none;
 }
 
 .bottom-card {
+  position: fixed;
   width: 100%;
+  max-height: 90vh;
+  overflow: auto;
   margin-left: 0%;
-  margin-top: 30%; /* Push the card to the bottom */
+  margin-top: 44%;
 }
 
+.input-card {
+  width: 400px;
+  margin: 20px auto;
+  background-color: transparent;
+  border: none;
+}
+
+.input-card .sign {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-card input {
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.submit-button {
+  background-color: black;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 15px 20px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #333;
+}
 
 
 .iteration-message {
@@ -45,12 +82,12 @@
 .sign {
   display: inline-block;
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.5); /* Dark green background color */
-  color: white; /* White text color */
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
   padding: 7px;
-  border: 2px solid black; /* Black border */
-  border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add shadow effect */
+  border: 2px solid black;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .sign h1 {
@@ -64,10 +101,10 @@
   border-radius: 5px;
   padding: 10px 20px;
   cursor: pointer;
-  margin-right: 10px; /* Add some spacing between the buttons */
+  margin-right: 10px;
 }
 
 .action-button:last-child {
-  margin-right: 0; /* Remove margin from the last button to prevent extra space */
+  margin-right: 0;
 }
 

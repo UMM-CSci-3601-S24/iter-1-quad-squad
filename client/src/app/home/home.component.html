@@ -5,11 +5,19 @@
         <h1>Welcome to the hunt</h1>
       </div>
     </mat-card>
+
+    <mat-card class="input-card" *ngIf="showHunterInput">
+      <div class="sign">
+        <input type="text" placeholder="Enter the invite code">
+        <button class="submit-button" (click)="submitHunterForm()">Submit</button>
+      </div>
+    </mat-card>
+
     <mat-card class="home-card bottom-card">
       <div class="sign">
         <h1>Choose Your Adventure</h1>
         <button class="action-button" (click)="hostLogin()">Host</button>
-        <button class="action-button">Hunter</button>
+        <button class="action-button" (click)="showHunterForm()">Hunter</button>
       </div>
     </mat-card>
   </div>
