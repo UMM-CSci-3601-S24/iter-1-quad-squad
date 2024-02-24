@@ -1,5 +1,5 @@
 .background {
-  background-image: url("src/app/home/Forestbg.jpg");
+  background-image: url("src/app/login/Forestbg.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 
@@ -19,7 +19,7 @@
   height: 100%; /* Make the flex container take up the full height */
 }
 
-.home-card {
+.login-card {
   max-width: 80%; /* Set the maximum width for the card */
   background-color: transparent; /* Set background color to transparent */
   border: none;
@@ -33,6 +33,64 @@
   transform: translateX(-50%);
   color: white;
   font-size: 14px;
+}
+
+.login-section {
+  text-align: center; /* Center the login section */
+  background-color: rgba(0, 0, 0, 0.5);
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 2px solid black; /* Black border */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add shadow effect */
+}
+
+.login-section h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  display: block;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-button {
+  background-color: black;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #0056b3;
+}
+
+.links {
+  margin-top: 10px;
+}
+
+.links a {
+  color: white;
+  text-decoration: none;
+}
+
+.links a:hover {
+  text-decoration: underline;
 }
 
 .sign {
