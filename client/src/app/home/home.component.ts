@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
@@ -11,5 +12,10 @@ import { MatCardModule } from '@angular/material/card';
 })
 
 export class HomeComponent {
+  constructor(private router: Router) { } // Inject the Router service
 
+  hostLogin() {
+    // Redirect to the login page
+    this.router.navigate(['/login']);
+}
 }

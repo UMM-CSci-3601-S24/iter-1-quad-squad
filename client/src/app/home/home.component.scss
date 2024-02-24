@@ -11,19 +11,26 @@
   background-color: #f0f0f0; /* Set the background color you want */
 }
 
-.flex-1 {
+.flex-container {
   display: flex;
-  justify-content: center;
-  margin: 10%;
-  align-items: self-start;
-  height: 100%; /* Make the flex container take up the full height */
+  flex-direction: column;
 }
 
 .home-card {
-  max-width: 80%; /* Set the maximum width for the card */
+  position: center;
+  width: 25%;
+  margin-top: 10%; /* Add some margin between the cards */
+  margin-left: 38%;
   background-color: transparent; /* Set background color to transparent */
   border: none;
 }
+
+.bottom-card {
+  width: 100%;
+  margin-left: 0%;
+  margin-top: 30%; /* Push the card to the bottom */
+}
+
 
 
 .iteration-message {
@@ -49,3 +56,18 @@
 .sign h1 {
   margin: 0;
 }
+
+.action-button {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-right: 10px; /* Add some spacing between the buttons */
+}
+
+.action-button:last-child {
+  margin-right: 0; /* Remove margin from the last button to prevent extra space */
+}
+
