@@ -4,34 +4,47 @@ import { MatCardModule } from '@angular/material/card';
 import { By } from '@angular/platform-browser';
 import { HomeComponent } from './home.component';
 
-describe('Home', () => {
+describe('HomeComponent', () => {
 
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
   let de: DebugElement;
   let el: HTMLElement;
 
-
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-    imports: [MatCardModule, HomeComponent],
-});
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [MatCardModule],
+      declarations: [HomeComponent]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HomeComponent);
-
-    component = fixture.componentInstance; // BannerComponent test instance
-
-    // query for the link (<a> tag) by CSS element selector
-    de = fixture.debugElement.query(By.css('.home-card'));
+    component = fixture.componentInstance;
+    de = fixture.debugElement;
     el = de.nativeElement;
   });
 
-  it('It has the basic home page text', () => {
-    fixture.detectChanges();
-    expect(el.textContent).toContain('This is a home page! It doesn\'t do anything!');
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-});
+  it('should contain the basic home page text', () => {
+    fixture.detectChanges();
+    expect(el.textContent).toContain('This is a home page! It doesn\'t do anything!');
+  });
 
+  it('should contain a login button', () => {
+    fixture.detectChanges();
+    const loginButton = de.query(By.css('.login-button'));
+    expect(loginButton).toBeTruthy();
+    expect(loginButton.nativeElement.textContent).toContain('Login');
+  });
+
+  it('login button should trigger login method when clicked', () => {
+    spyOn(component, 'login'); // Spy on the login method
+    fixture.detectChanges();
+    const loginButton = de.query(By.css('.login-button'));
+    loginButton.triggerEventHandler('click', 'dummy payload');
+    expect(component.login).toHaveBeenCalled();
+  });
+
+});

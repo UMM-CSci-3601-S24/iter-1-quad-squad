@@ -14,7 +14,8 @@
 .flex-1 {
   display: flex;
   justify-content: center;
-  align-items: center;
+  margin: 10%;
+  align-items: self-start;
   height: 100%; /* Make the flex container take up the full height */
 }
 
@@ -30,4 +31,30 @@
   transform: translateX(-50%);
   color: white;
   font-size: 14px;
+}
+.login-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #0056b3;
+}
+
+.sign {
+  display: inline-block;
+  background-color: darkgreen; /* Dark green background color */
+  color: #fff; /* White text color */
+  padding: 7px;
+  border: 2px solid black; /* Black border */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add shadow effect */
+}
+
+.sign h1 {
+  margin: 0;
 }
