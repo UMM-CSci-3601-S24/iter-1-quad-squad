@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
     standalone: true,
     imports: [MatCardModule]
 })
+
 export class HomeComponent {
 
 }

@@ -101,10 +101,18 @@ $dark-theme: mat.define-dark-theme((
 
 html, body {
   height: 100%;
+  width: 100%;
+  margin: 0%;
+  padding: 0%;
 }
 
 body {
   margin: 0;
+  background-image: url('/client/src/app/home/Forestbg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100%;
+  background-position: center center;
 }
 
 // This media query detects if the user has dark-mode turned on on their OS or browser
