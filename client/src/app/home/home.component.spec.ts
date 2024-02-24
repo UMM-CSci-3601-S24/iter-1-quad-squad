@@ -11,8 +11,6 @@ describe('Home', () => {
   let de: DebugElement;
   let el: HTMLElement;
 
-
-
   beforeEach(() => {
     TestBed.configureTestingModule({
     imports: [MatCardModule, HomeComponent],
@@ -29,7 +27,7 @@ describe('Home', () => {
 
   it('It has the basic home page text', () => {
     fixture.detectChanges();
-    expect(el.textContent).toContain('This is a home page! It doesn\'t do anything!');
+    expect(el.textContent).toContain('Welcome to the hunt');
     expect(component).toBeTruthy();
   });
 
