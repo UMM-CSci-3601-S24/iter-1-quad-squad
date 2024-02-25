@@ -61,8 +61,10 @@ public class TaskListController {
   }
 
   public void getTasks(Context ctx) {
+    Bson combinedFilter = constructFilter(ctx);
+
     ArrayList<Task> matchingTasks = taskCollection
-      .find()
+      .find(combinedFilter)
       .into(new ArrayList<>());
 
     ctx.json(matchingTasks);
