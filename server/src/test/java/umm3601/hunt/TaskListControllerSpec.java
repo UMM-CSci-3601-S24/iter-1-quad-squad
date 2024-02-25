@@ -175,5 +175,20 @@ class TaskListControllerSpec {
     assertEquals("The requested task was not found", exception.getMessage());
   }
 
+  @Captor
+  private ArgumentCaptor<ArrayList<TaskByHuntId>> taskByHuntIdListCaptor;
+  @Test
+  void getTasksByHuntId() throws IOException {
+    // TODO: Implement this test
+    taskListController.getTasksByHuntId(ctx);
+
+    verify(ctx).json(taskByHuntIdListCaptor.capture());
+    ArrayList<TaskByHuntId> result = taskByHuntIdListCaptor.getValue();
+    assertEquals(2, result.size());
+
+
+
+  }
+
 
 }
