@@ -135,7 +135,7 @@ class TaskListControllerSpec {
     verify(ctx).status(HttpStatus.OK);
 
     assertEquals(
-      db.getCollection("todos").countDocuments(),
+      db.getCollection("tasks").countDocuments(),
       taskListCaptor.getValue().size());
   }
 
