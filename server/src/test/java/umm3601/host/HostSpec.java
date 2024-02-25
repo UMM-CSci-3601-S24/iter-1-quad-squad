@@ -43,6 +43,7 @@ class HostSpec {
     assertTrue(host1.hashCode() == host2.hashCode());
   }
 
+  @SuppressWarnings("unlikely-arg-type")
   @Test
   void hostsAreNotEqualToOtherKindsOfThings() {
     host1._id = FAKE_ID_STRING_1;

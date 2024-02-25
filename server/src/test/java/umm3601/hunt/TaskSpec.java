@@ -44,6 +44,7 @@ public class TaskSpec {
   }
 
   @Test
+  @SuppressWarnings("unlikely-arg-type")
   void tasksAreNotEqualToOtherKindsOfThings() {
     task1._id = FAKE_ID_STRING_1;
     // a task is not equal to its id even though id is used for checking equality

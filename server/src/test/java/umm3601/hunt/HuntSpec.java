@@ -44,6 +44,7 @@ public class HuntSpec {
   }
 
   @Test
+  @SuppressWarnings("unlikely-arg-type")
   void huntsAreNotEqualToOtherKindsOfThings() {
     hunt1._id = FAKE_ID_STRING_1;
     // a hunt is not equal to its id even though id is used for checking equality
