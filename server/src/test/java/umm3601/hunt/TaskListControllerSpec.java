@@ -135,4 +135,18 @@ class TaskListControllerSpec {
       taskListCaptor.getValue().size());
   }
 
+  @Test
+  void getTaskWithExistentId() throws IOException {
+    String id = testId.toHexString();
+    when(ctx.pathParam("id")).thenReturn(id);
+
+    taskListController.getTask(ctx);
+
+    verify(ctx).json(taskCaptor.capture());
+    verify(ctx).status(HttpStatus.OK);
+    assertEquals("Take a picture of a road", taskCaptor.getValue().description);
+    assertEquals("test-hunt-id-2", taskCaptor.getValue().huntId);
+    assertEquals(1, taskCaptor.getValue().position);
+  }
+
 }
