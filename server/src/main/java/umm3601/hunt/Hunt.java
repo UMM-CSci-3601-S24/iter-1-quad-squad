@@ -1,8 +1,12 @@
 package umm3601.hunt;
 
-public class Hunt {
+import org.mongojack.Id;
+import org.mongojack.ObjectId;
 
+public class Hunt {
+  @ObjectId @Id
   public String _id;
+
   public String name;
   public String description;
   public String ownerID;
