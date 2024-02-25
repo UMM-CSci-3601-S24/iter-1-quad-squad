@@ -1,6 +1,7 @@
 package umm3601.hunt;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -32,9 +33,11 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 import io.javalin.Javalin;
+import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import io.javalin.json.JavalinJackson;
+import net.bytebuddy.implementation.bytecode.Throw;
 
 class TaskListControllerSpec {
   private TaskListController taskListController;
@@ -148,5 +151,17 @@ class TaskListControllerSpec {
     assertEquals("test-hunt-id-2", taskCaptor.getValue().huntId);
     assertEquals(1, taskCaptor.getValue().position);
   }
+
+  @Test
+  void getTaskWithBadId() {
+    when(ctx.pathParam("id")).thenReturn("bad");
+
+    Throwable exception = assertThrows(BadRequestResponse.class, () -> {
+      taskListController.getTask(ctx);
+    });
+
+    assertEquals("The requested task id wasn't a legal Mongo Object ID.", exception.getMessage());
+  }
+
 
 }
