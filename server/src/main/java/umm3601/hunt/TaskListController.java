@@ -2,6 +2,9 @@ package umm3601.hunt;
 
 import static com.mongodb.client.model.Filters.eq;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import org.bson.UuidRepresentation;
 import org.bson.types.ObjectId;
 import org.mongojack.JacksonMongoCollection;
@@ -48,8 +51,12 @@ public class TaskListController {
   }
 
   public void getTasks(Context ctx) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getTasks'");
+    ArrayList<Task> matchingTasks = taskCollection
+      .find()
+      .into(new ArrayList<>());
+
+    ctx.json(matchingTasks);
+    ctx.status(HttpStatus.OK);
   }
 
   /**
