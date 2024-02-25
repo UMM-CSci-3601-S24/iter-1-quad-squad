@@ -103,4 +103,9 @@ public class TaskListController {
     return combinedFilter;
   }
 
+  public void getTasksByHuntId(Context ctx) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getTasksByHuntId'");
+  }
+
 }
