@@ -38,7 +38,6 @@ import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import io.javalin.http.NotFoundResponse;
 import io.javalin.json.JavalinJackson;
-import net.bytebuddy.implementation.bytecode.Throw;
 
 class TaskListControllerSpec {
   private TaskListController taskListController;
