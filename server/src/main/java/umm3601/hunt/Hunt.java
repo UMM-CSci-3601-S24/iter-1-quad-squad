@@ -9,7 +9,7 @@ public class Hunt {
 
   public String name;
   public String description;
-  public String ownerID;
+  public String ownerId;
 
   @Override
   public boolean equals(Object obj) {

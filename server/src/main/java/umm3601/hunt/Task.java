@@ -8,7 +8,7 @@ public class Task {
   public String _id;
 
   public String description;
-  public String huntID;
+  public String huntId;
   public int position;
 
   @Override
