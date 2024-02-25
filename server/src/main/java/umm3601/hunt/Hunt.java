@@ -4,7 +4,7 @@ public class Hunt {
 
   public String _id;
   public String name;
-  public String desc;
+  public String description;
   public String ownerID;
 
   @Override
