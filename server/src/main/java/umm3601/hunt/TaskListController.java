@@ -2,6 +2,7 @@ package umm3601.hunt;
 
 import static com.mongodb.client.model.Filters.eq;
 
+import org.bson.UuidRepresentation;
 import org.bson.types.ObjectId;
 import org.mongojack.JacksonMongoCollection;
 
@@ -21,8 +22,12 @@ public class TaskListController {
 
   private final JacksonMongoCollection<Task> taskCollection;
 
-  public TaskListController(MongoDatabase db) {
-    // TODO Auto-generated constructor stub
+  public TaskListController(MongoDatabase database) {
+    taskCollection = JacksonMongoCollection.builder().build(
+      database,
+      "tasks",
+      Task.class,
+      UuidRepresentation.STANDARD);
   }
 
   public void getTask(Context ctx) {
