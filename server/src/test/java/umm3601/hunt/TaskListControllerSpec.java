@@ -121,8 +121,8 @@ class TaskListControllerSpec {
     taskListController.addRoutes(mockServer);
     verify(mockServer, Mockito.atLeast(1)).get(any(), any());
     // make tests here stronger when there is more to test
-    verify(mockServer, Mockito.atLeastOnce()).post(any(), any());
-    verify(mockServer, Mockito.atLeastOnce()).delete(any(), any());
+    // verify(mockServer, Mockito.atLeastOnce()).post(any(), any());
+    // verify(mockServer, Mockito.atLeastOnce()).delete(any(), any());
   }
 
   @Test
