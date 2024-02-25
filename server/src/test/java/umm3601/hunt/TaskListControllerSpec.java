@@ -36,6 +36,7 @@ import io.javalin.Javalin;
 import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
+import io.javalin.http.NotFoundResponse;
 import io.javalin.json.JavalinJackson;
 import net.bytebuddy.implementation.bytecode.Throw;
 
@@ -161,6 +162,18 @@ class TaskListControllerSpec {
     });
 
     assertEquals("The requested task id wasn't a legal Mongo Object ID.", exception.getMessage());
+  }
+
+  @Test
+  void getTaskWithNonexistentId() {
+    String id = "588935f5c668650dc77df581";
+    when(ctx.pathParam("id")).thenReturn(id);
+
+    Throwable exception = assertThrows(NotFoundResponse.class, () -> {
+      taskListController.getTask(ctx);
+    });
+
+    assertEquals("The requested task was not found", exception.getMessage());
   }
 
 
