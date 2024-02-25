@@ -3,6 +3,7 @@ package umm3601.hunt;
 import org.mongojack.Id;
 import org.mongojack.ObjectId;
 
+@SuppressWarnings({"VisibilityModifier"})
 public class Hunt {
   @ObjectId @Id
   public String _id;
