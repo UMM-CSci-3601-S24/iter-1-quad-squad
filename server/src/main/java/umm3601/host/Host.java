@@ -5,6 +5,7 @@ import org.mongojack.ObjectId;
 
 public class Host {
   @ObjectId @Id
+  @SuppressWarnings({"MemberName"})
   public String _id;
 
   public String username;
