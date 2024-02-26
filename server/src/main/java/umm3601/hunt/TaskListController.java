@@ -100,4 +100,8 @@ public class TaskListController {
 
     return combinedFilter;
   }
+
+  public void getTasksByHuntId(Context ctx) {
+
+  }
 }
