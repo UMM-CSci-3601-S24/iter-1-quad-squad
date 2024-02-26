@@ -3,6 +3,7 @@ package umm3601.host;
 import org.mongojack.Id;
 import org.mongojack.ObjectId;
 
+@SuppressWarnings("checkstyle:visibilitymodifier")
 public class Host {
   @ObjectId @Id
   @SuppressWarnings({"MemberName"})

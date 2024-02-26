@@ -39,6 +39,7 @@ import io.javalin.http.HttpStatus;
 import io.javalin.http.NotFoundResponse;
 import io.javalin.json.JavalinJackson;
 
+@SuppressWarnings({"MagicNumber"})
 class TaskListControllerSpec {
   private TaskListController taskListController;
 
@@ -82,7 +83,6 @@ class TaskListControllerSpec {
     MockitoAnnotations.openMocks(this);
 
     // Setup database
-    @SuppressWarnings({"MagicNumber"})
     MongoCollection<Document> taskDocuments = db.getCollection("tasks");
     taskDocuments.drop();
     List<Document> testTasks = new ArrayList<>();
