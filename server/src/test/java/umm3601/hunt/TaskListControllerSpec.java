@@ -82,6 +82,7 @@ class TaskListControllerSpec {
     MockitoAnnotations.openMocks(this);
 
     // Setup database
+    @SuppressWarnings({"MagicNumber"})
     MongoCollection<Document> taskDocuments = db.getCollection("tasks");
     taskDocuments.drop();
     List<Document> testTasks = new ArrayList<>();
