@@ -89,24 +89,24 @@ class TaskListControllerSpec {
     testTasks.add(
         new Document()
             .append("description", "Take a picture of a tree")
-            .append("huntId", "test-hunt-id")
+            .append("huntId", "testHuntId")
             .append("position", 1));
     testTasks.add(
         new Document()
             .append("description", "Take a picture of a rock")
-            .append("huntId", "test-hunt-id")
+            .append("huntId", "testHuntId")
             .append("position", 2));
     testTasks.add(
         new Document()
             .append("description", "Take a picture of a bird")
-            .append("huntId", "test-hunt-id")
+            .append("huntId", "testHuntId")
             .append("position", 3));
 
     testId = new ObjectId();
     Document testTask = new Document()
         .append("_id", testId)
         .append("description", "Take a picture of a road")
-        .append("huntId", "test-hunt-id-2")
+        .append("huntId", "testHuntId2")
         .append("position", 1);
 
     taskDocuments.insertMany(testTasks);
@@ -149,7 +149,7 @@ class TaskListControllerSpec {
     verify(ctx).json(taskCaptor.capture());
     verify(ctx).status(HttpStatus.OK);
     assertEquals("Take a picture of a road", taskCaptor.getValue().description);
-    assertEquals("test-hunt-id-2", taskCaptor.getValue().huntId);
+    assertEquals("testHuntId-2", taskCaptor.getValue().huntId);
     assertEquals(1, taskCaptor.getValue().position);
   }
 
@@ -174,5 +174,17 @@ class TaskListControllerSpec {
     });
 
     assertEquals("The requested task was not found", exception.getMessage());
+  }
+
+  @Test
+  void testGetTasksByHuntId() {
+    taskListController.getTasksByHuntId(ctx)
+
+    TaskByHuntId testHuntId.get(0);
+    assertEquals("testHuntId", testHuntId._id);
+    assertEquals(3,testHuntId.count);
+    TaskByHuntId testHuntId-2.get(0);
+    assertEquals("testHuntId2", testHuntId2._id);
+    assertEquals(3,testHuntId2.count);
   }
 }
