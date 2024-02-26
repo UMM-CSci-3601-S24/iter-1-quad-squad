@@ -3,6 +3,7 @@ package umm3601.hunt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -178,12 +179,21 @@ class TaskListControllerSpec {
 
   @Test
   void testGetTasksByHuntId() {
-    taskListController.getTasksByHuntId(ctx)
+    // Set up the context
+    Context ctx = mock(Context.class);
+    when(ctx.pathParam("huntId")).thenReturn("testHuntId");
 
-    TaskByHuntId testHuntId.get(0);
+    List<TaskByHuntId> tasks = taskListController.getTasksByHuntId(ctx);
+
+    // check that testHuntId has correct id and count
+    TaskByHuntId testHuntId = tasks.get(0);
     assertEquals("testHuntId", testHuntId._id);
     assertEquals(3,testHuntId.count);
-    TaskByHuntId testHuntId-2.get(0);
+
+    // check that testHuntId2 has correct id and count
+    when(ctx.pathParam("huntId")).thenReturn("testHuntId2");
+
+    TaskByHuntId testHuntId2 = tasks.get(0);
     assertEquals("testHuntId2", testHuntId2._id);
     assertEquals(3,testHuntId2.count);
   }
