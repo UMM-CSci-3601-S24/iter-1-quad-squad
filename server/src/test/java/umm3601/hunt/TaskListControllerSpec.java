@@ -155,7 +155,7 @@ class TaskListControllerSpec {
     verify(ctx).json(taskCaptor.capture());
     verify(ctx).status(HttpStatus.OK);
     assertEquals("Take a picture of a road", taskCaptor.getValue().description);
-    assertEquals("testHuntId-2", taskCaptor.getValue().huntId);
+    assertEquals("testHuntId3", taskCaptor.getValue().huntId);
     assertEquals(1, taskCaptor.getValue().position);
   }
 
@@ -193,8 +193,8 @@ class TaskListControllerSpec {
     verify(ctx).json(tasksByHuntIdListCaptor.capture());
 
     ArrayList<TaskByHuntId> result = tasksByHuntIdListCaptor.getValue();
-    // 2 Hunts in test data
-    assertEquals(2, result.size());
+    // 3 Hunts in test data
+    assertEquals(3, result.size());
 
     // check that testHuntId has correct id and count
     TaskByHuntId testHuntId = result.get(0);
