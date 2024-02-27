@@ -40,7 +40,7 @@ import io.javalin.http.HttpStatus;
 import io.javalin.http.NotFoundResponse;
 import io.javalin.json.JavalinJackson;
 
-@SuppressWarnings({"MagicNumber"})
+@SuppressWarnings({ "MagicNumber" })
 class TaskListControllerSpec {
   private TaskListController taskListController;
 
@@ -136,8 +136,8 @@ class TaskListControllerSpec {
     verify(ctx).status(HttpStatus.OK);
 
     assertEquals(
-      db.getCollection("tasks").countDocuments(),
-      taskListCaptor.getValue().size());
+        db.getCollection("tasks").countDocuments(),
+        taskListCaptor.getValue().size());
   }
 
   @Test
@@ -177,24 +177,28 @@ class TaskListControllerSpec {
     assertEquals("The requested task was not found", exception.getMessage());
   }
 
+  @Captor
+  private ArgumentCaptor<ArrayList<TaskByHuntId>> tasksByHuntIdListCaptor;
+
   @Test
   void testGetTasksByHuntId() {
     // Set up the context
-    Context ctx = mock(Context.class);
-    when(ctx.pathParam("huntId")).thenReturn("testHuntId");
+    taskListController.getTasksByHuntId(ctx);
 
-    List<TaskByHuntId> tasks = taskListController.getTasksByHuntId(ctx);
+    verify(ctx).json(tasksByHuntIdListCaptor.capture());
+
+    ArrayList<TaskByHuntId> result = tasksByHuntIdListCaptor.getValue();
+    // 2 Hunts in test data
+    assertEquals(2, result.size());
 
     // check that testHuntId has correct id and count
-    TaskByHuntId testHuntId = tasks.get(0);
+    TaskByHuntId testHuntId = result.get(0);
     assertEquals("testHuntId", testHuntId._id);
-    assertEquals(3,testHuntId.count);
+    assertEquals(3, testHuntId.count);
 
     // check that testHuntId2 has correct id and count
-    when(ctx.pathParam("huntId")).thenReturn("testHuntId2");
-
-    TaskByHuntId testHuntId2 = tasks.get(0);
+    TaskByHuntId testHuntId2 = result.get(1);
     assertEquals("testHuntId2", testHuntId2._id);
-    assertEquals(3,testHuntId2.count);
+    assertEquals(3, testHuntId2.count);
   }
 }
