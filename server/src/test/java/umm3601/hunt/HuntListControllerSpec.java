@@ -1,8 +1,14 @@
 package umm3601.hunt;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -11,9 +17,11 @@ import org.bson.types.ObjectId;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import com.mongodb.MongoClientSettings;
@@ -23,7 +31,9 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
+import io.javalin.Javalin;
 import io.javalin.http.Context;
+import io.javalin.http.HttpStatus;
 import io.javalin.json.JavalinJackson;
 
 @SuppressWarnings({"MagicNumber"})
@@ -41,7 +51,7 @@ class HuntListControllerSpec {
   private Context ctx;
 
   @Captor
-  private ArgumentCaptor<ArrayList<Hunt>> huntLisCaptor;
+  private ArgumentCaptor<ArrayList<Hunt>> huntListCaptor;
 
   @Captor
   private ArgumentCaptor<Hunt> huntCaptor;
@@ -68,7 +78,6 @@ class HuntListControllerSpec {
   @BeforeEach
   void setupEach() throws IOException {
     MockitoAnnotations.openMocks(this);
-  }
 
   MongoCollection<Document> huntDocuments = db.getCollection("hunts");
   huntDocuments.drop();
@@ -96,8 +105,45 @@ class HuntListControllerSpec {
     .append("ownerId", "hunt-owner-id")
     .append("description", "Hunt around the Science Building");
 
-  taskDocuments.insertMany(testHunts);
-  taskDocuments.insertOne(testHunt);
+  huntDocuments.insertMany(testHunts);
+  huntDocuments.insertOne(testHunt);
 
   huntListController = new HuntListController(db);
+  }
+
+  @Test
+  void addRoutes() {
+    Javalin mockServer = Mockito.mock(Javalin.class);
+    huntListController.addRoutes(mockServer);
+    verify(mockServer, Mockito.atLeast(1)).get(any(), any());
+  }
+
+  @Test
+  void canGetAllHunts() throws IOException {
+    when(ctx.queryParamMap()).thenReturn(Collections.emptyMap());
+
+    huntListController.getHunts(ctx);
+
+    verify(ctx).json(huntListCaptor.capture());
+    verify(ctx).status(HttpStatus.OK);
+
+    assertEquals(
+      db.getCollection("hunts").countDocuments(),
+      huntListCaptor.getValue().size());
+  }
+
+  @Test
+  void getHuntWithExistentId() throws IOException{
+    String id = testId.toHexString();
+    when(ctx.pathParam("id")).thenReturn(id);
+
+    huntListController.getHunt(ctx);
+
+    verify(ctx).json(huntCaptor.capture());
+    verify(ctx).status(HttpStatus.OK);
+    assertEquals("Science Building hunt", huntCaptor.getValue().name);
+    assertEquals("hunt-owner-id", huntCaptor.getValue().ownerId);
+    assertEquals("Hunt around the Science Building", huntCaptor.getValue().description);
+  }
 }
+
