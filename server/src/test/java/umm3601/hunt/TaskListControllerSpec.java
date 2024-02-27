@@ -196,15 +196,6 @@ class TaskListControllerSpec {
     // 3 Hunts in test data
       assertEquals(3, result.size());
 
-    //TODO: Order inconsistent, need to fix
-    System.out.println("Test data: " + result);
-    System.out.println("Index 0 ID " + result.get(0)._id);
-    System.out.println("Index 0 Count: " + result.get(0).count);
-    System.out.println("Index 1 ID: " + result.get(1)._id);
-    System.out.println("Index 1 Count: " + result.get(1).count);
-    System.out.println("Index 2 ID: " + result.get(2)._id);
-    System.out.println("Index 2 Count: " + result.get(2).count);
-
     // check that testHuntId has correct id and count
     TaskByHuntId testHuntId = result.get(0);
     assertEquals("testHuntId", testHuntId._id);
