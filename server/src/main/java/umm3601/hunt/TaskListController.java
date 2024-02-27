@@ -105,11 +105,12 @@ public class TaskListController {
     ArrayList<TaskByHuntId> matchingTasks = taskCollection
         .aggregate(
             List.of(
-                new Document("$project", new Document("_id", 1).append("count", 1).append("huntId", 1)),
+                new Document("$project", new Document("_id", 1).append("task", 1).append("huntId", 1)),
                 new Document("$group", new Document("_id", "$huntID")
                     .append("count", new Document("$sum", 1))
                     .append("tasks", new Document("$push", new Document("_id", "$_id").append("task", "$task"))))),
-            TaskByHuntId.class)
+            TaskByHuntId.class
+        )
         .into(new ArrayList<>());
 
     ctx.json(matchingTasks);
