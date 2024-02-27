@@ -35,10 +35,10 @@ public class TaskListController {
 
   public TaskListController(MongoDatabase database) {
     taskCollection = JacksonMongoCollection.builder().build(
-      database,
-      "tasks",
-      Task.class,
-      UuidRepresentation.STANDARD);
+        database,
+        "tasks",
+        Task.class,
+        UuidRepresentation.STANDARD);
   }
 
   public void getTask(Context ctx) {
@@ -62,8 +62,8 @@ public class TaskListController {
     Bson combinedFilter = constructFilter(ctx);
 
     ArrayList<Task> matchingTasks = taskCollection
-      .find(combinedFilter)
-      .into(new ArrayList<>());
+        .find(combinedFilter)
+        .into(new ArrayList<>());
 
     ctx.json(matchingTasks);
     ctx.status(HttpStatus.OK);
@@ -90,9 +90,9 @@ public class TaskListController {
     }
     if (ctx.queryParamMap().containsKey(POSITION_KEY)) {
       int position = ctx.queryParamAsClass(DESCRIPTION_KEY, Integer.class)
-      .check(it -> it > 0, "Position must be a positive integer")
-      .check(it -> it < REASONABLE_TASK_LIMIT, "Position must be less than " + REASONABLE_TASK_LIMIT)
-      .get();
+          .check(it -> it > 0, "Position must be a positive integer")
+          .check(it -> it < REASONABLE_TASK_LIMIT, "Position must be less than " + REASONABLE_TASK_LIMIT)
+          .get();
       filters.add(eq(POSITION_KEY, Integer.parseInt(ctx.queryParam(POSITION_KEY))));
     }
 
@@ -102,6 +102,17 @@ public class TaskListController {
   }
 
   public void getTasksByHuntId(Context ctx) {
+    ArrayList<TaskByHuntId> matchingTasks = taskCollection
+        .aggregate(
+            List.of(
+                new Document("$project", new Document("_id", 1).append("count", 1).append("huntId", 1)),
+                new Document("$group", new Document("_id", "$huntID")
+                    .append("count", new Document("$sum", 1))
+                    .append("tasks", new Document("$push", new Document("_id", "$_id").append("task", "$task"))))),
+            TaskByHuntId.class)
+        .into(new ArrayList<>());
 
+    ctx.json(matchingTasks);
+    ctx.status(HttpStatus.OK);
   }
 }
