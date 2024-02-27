@@ -13,6 +13,8 @@ import { CompanyListComponent } from './company-list/company-list.component';
 const routes: Routes = [
   {path: '', component: HomeComponent, title: 'Home'},
   {path: 'login', component: LoginComponent, title: 'Login'},
+  // {path: 'hunts/:id', component: seeHuntComponent}, to be implemented, where a user can sees all their hunts
+  // {path: 'tasks/:id', component: editHuntComponent}, to be implemented, page that you can see all tasks in a hunt and edit them
   {path: 'users', component: UserListComponent, title: 'Users'},
   {path: 'users/new', component: AddUserComponent, title: 'Add User'},
   {path: 'users/:id', component: UserProfileComponent, title: 'User Profile'},
