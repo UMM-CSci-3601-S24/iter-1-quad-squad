@@ -102,12 +102,17 @@ class TaskListControllerSpec {
             .append("description", "Take a picture of a bird")
             .append("huntId", "testHuntId")
             .append("position", 3));
+    testTasks.add(
+        new Document()
+            .append("description", "Take a selfie")
+            .append("huntId", "testHuntId2")
+            .append("position", 1));
 
     testId = new ObjectId();
     Document testTask = new Document()
         .append("_id", testId)
         .append("description", "Take a picture of a road")
-        .append("huntId", "testHuntId2")
+        .append("huntId", "testHuntId3")
         .append("position", 1);
 
     taskDocuments.insertMany(testTasks);
