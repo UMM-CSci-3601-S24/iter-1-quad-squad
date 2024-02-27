@@ -189,12 +189,12 @@ class TaskListControllerSpec {
   void testGetTasksByHuntId() {
     // Set up the context
     taskListController.getTasksByHuntId(ctx);
-
+    // Capture the value
     verify(ctx).json(tasksByHuntIdListCaptor.capture());
-
+    // Check the value of the captured argument is as expected (3 hunts in test data)
     ArrayList<TaskByHuntId> result = tasksByHuntIdListCaptor.getValue();
     // 3 Hunts in test data
-    assertEquals(3, result.size());
+      assertEquals(3, result.size());
 
     // check that testHuntId has correct id and count
     TaskByHuntId testHuntId = result.get(0);
