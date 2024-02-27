@@ -1,0 +1,42 @@
+[
+  {
+    "_id": {
+      "$oid": "65de480206148c9e567ab8d9"
+    },
+    "description": "Reprehenderit officia eu cupidatat cupidatat dolor laborum laboris.",
+    "huntId": "65de46d19a719626538626bc",
+    "position": 5
+  },
+  {
+    "_id": {
+      "$oid": "65de4802d287a7f65061ab08"
+    },
+    "description": "Cupidatat amet ea duis reprehenderit cupidatat aliqua dolor excepteur.",
+    "huntId": "65de46d19a719626538626bc",
+    "position": 1
+  },
+  {
+    "_id": {
+      "$oid": "65de4802a46f266c8b7ea5ab"
+    },
+    "description": "Nostrud ut qui officia qui irure incididunt proident nostrud id in commodo anim proident.",
+    "huntId": "65de46d19a719626538626bc",
+    "position": 2
+  },
+  {
+    "_id": {
+      "$oid": "65de480214fc56825585ae41"
+    },
+    "description": "Ut proident nisi nulla ullamco.",
+    "huntId": "65de46d19a719626538626bc",
+    "position": 3
+  },
+  {
+    "_id": {
+      "$oid": "65de48021540e6c86c1e3ddb"
+    },
+    "description": "Cupidatat esse reprehenderit mollit magna dolore.",
+    "huntId": "65de46d19a719626538626bc",
+    "position": 4
+  }
+]
