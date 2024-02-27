@@ -1,0 +1,82 @@
+[
+  {
+    "_id": {
+      "$oid": "65de46d19a719626538626bc"
+    },
+    "name": "Paraguay",
+    "description": "Consectetur mollit adipisicing et dolor occaecat commodo sit ut aliquip non incididunt labore. Laboris velit non adipisicing ex nostrud. Irure qui minim magna sit consectetur adipisicing minim minim laboris reprehenderit anim.\r\n",
+    "ownerId": "65de4548706d922e953ac36e"
+  },
+  {
+    "_id": {
+      "$oid": "65de46d14ea9ad9d01aa0236"
+    },
+    "name": "Virgin Islands (US)",
+    "description": "Officia incididunt voluptate qui laboris eiusmod. Officia anim esse anim ullamco deserunt nostrud non exercitation reprehenderit aute dolor aliqua. Non labore dolore do ut Lorem id aliquip cillum cupidatat culpa. Minim velit reprehenderit cillum qui veniam ea fugiat. Enim ut excepteur dolor quis anim ipsum incididunt. Quis amet sit sit sunt consectetur sit eiusmod tempor. Dolor minim veniam sunt quis.\r\n",
+    "ownerId": "65de4548706d922e953ac36e"
+  },
+  {
+    "_id": {
+      "$oid": "65de46d1d398e49d6258578a"
+    },
+    "name": "Bahrain",
+    "description": "Ullamco ut veniam ipsum laboris velit ullamco ullamco. Ut aute officia ad officia laboris qui nulla. Amet id officia eu adipisicing. Sint in non tempor eiusmod ad et ex veniam sunt cillum do eiusmod. Non non minim deserunt consequat minim adipisicing nostrud laboris ex duis dolore culpa. Duis ea ut deserunt esse Lorem amet sit commodo cillum magna proident. Aute do laboris nisi aliquip ea voluptate fugiat.\r\n",
+    "ownerId": "65de4548706d922e953ac36e"
+  },
+  {
+    "_id": {
+      "$oid": "65de46d1048ae4cd1db2058b"
+    },
+    "name": "Romania",
+    "description": "Proident irure quis est nisi culpa. Nisi reprehenderit labore minim commodo tempor nulla amet dolor. Occaecat excepteur consequat aliquip aliquip reprehenderit tempor cillum incididunt ipsum commodo ea reprehenderit enim occaecat. Voluptate laborum Lorem anim deserunt consequat tempor labore deserunt mollit in anim aute ullamco. Lorem labore ad minim cillum qui anim.\r\n",
+    "ownerId": "65de4548706d922e953ac36e"
+  },
+  {
+    "_id": {
+      "$oid": "65de46d108d2fb70187434e3"
+    },
+    "name": "St. Pierre and Miquelon",
+    "description": "Mollit reprehenderit amet sint velit nostrud nisi. Sit mollit cillum anim enim sit. Labore aute labore voluptate anim fugiat deserunt sint ea cupidatat nulla. Exercitation sunt ea anim proident deserunt pariatur sit id aliqua veniam. Do culpa cillum ex eu non ea excepteur sint dolore labore pariatur. Dolor cillum consectetur elit cillum pariatur anim amet ea amet cupidatat culpa incididunt eu Lorem. Aute qui est est ipsum aute anim excepteur nulla officia commodo.\r\n",
+    "ownerId": "65de4548706d922e953ac36e"
+  },
+  {
+    "_id": {
+      "$oid": "65de4738a39666ae8fb3f8f1"
+    },
+    "name": "Iran",
+    "description": "Est quis dolor laboris velit. Eu eiusmod minim eu do. Irure elit aliquip dolor elit irure qui sint ea eu anim.\r\n",
+    "ownerId": "65de4548f2ba18bf0bc2b7b9"
+  },
+  {
+    "_id": {
+      "$oid": "65de4738a6a9a7a27177343e"
+    },
+    "name": "Sao Tome and Principe",
+    "description": "Ad sunt do do eu quis officia exercitation. In ut nisi laborum deserunt. Commodo nostrud qui velit non eiusmod adipisicing ex exercitation qui laborum ut eu cupidatat ad. Commodo qui nisi exercitation esse dolore esse. Enim occaecat ea laboris in proident occaecat irure. Ex tempor aliqua ullamco voluptate elit adipisicing voluptate velit tempor anim mollit adipisicing quis. Enim qui excepteur dolore consequat excepteur ut consectetur exercitation anim.\r\n",
+    "ownerId": "65de4548f2ba18bf0bc2b7b9"
+  },
+  {
+    "_id": {
+      "$oid": "65de4738f66dff55d3dd3635"
+    },
+    "name": "Tuvalu",
+    "description": "Ea elit ex consequat enim sit et reprehenderit. Esse est elit ut mollit aliquip nisi excepteur dolore ullamco non aute dolor veniam eiusmod. Duis sunt qui tempor non veniam dolore sint ex cupidatat laborum duis elit labore cupidatat. Nostrud reprehenderit ad do sunt non. Labore non adipisicing mollit minim nulla qui laborum dolor consequat nulla. Consectetur in laboris non consequat in deserunt enim adipisicing id dolor. Qui id aute labore voluptate minim eu laboris ullamco velit est veniam veniam cupidatat incididunt.\r\n",
+    "ownerId": "65de4548f2ba18bf0bc2b7b9"
+  },
+  {
+    "_id": {
+      "$oid": "65de4738f7e9124f8995d44b"
+    },
+    "name": "Jordan",
+    "description": "Excepteur nulla occaecat et ad sit incididunt magna. Officia aliquip ut incididunt minim labore anim labore non adipisicing do quis labore. Aliquip fugiat cillum tempor nostrud commodo consequat magna eu adipisicing quis mollit consectetur non. Ullamco consectetur nostrud exercitation deserunt veniam id incididunt.\r\n",
+    "ownerId": "65de4548f2ba18bf0bc2b7b9"
+  },
+  {
+    "_id": {
+      "$oid": "65de47385733100adf1c67e2"
+    },
+    "name": "Guyana",
+    "description": "Proident dolor proident in minim. Sunt anim sint ipsum aute reprehenderit ex laborum ullamco cillum laboris minim. Excepteur duis ut ullamco Lorem consequat reprehenderit nulla sit. Pariatur elit do dolor reprehenderit proident amet consectetur consequat tempor excepteur eu ea in eu.\r\n",
+    "ownerId": "65de4548f2ba18bf0bc2b7b9"
+  }
+]
