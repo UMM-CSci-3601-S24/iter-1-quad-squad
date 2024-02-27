@@ -196,6 +196,8 @@ class TaskListControllerSpec {
     // 3 Hunts in test data
       assertEquals(3, result.size());
 
+    //TODO: Need to change tests here to reflect new test data
+
     // check that testHuntId has correct id and count
     TaskByHuntId testHuntId = result.get(0);
     assertEquals("testHuntId", testHuntId._id);
