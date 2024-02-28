@@ -24,7 +24,7 @@ import umm3601.Controller;
 public class TaskListController implements Controller{
 
   private static final String API_TASKS = "api/tasks";
-  private static final String API_TASK_BY_ID = "api/hunt/{id}";
+  private static final String API_TASK_BY_ID = "api/task/{id}";
 
   static final String DESCRIPTION_KEY = "description";
   static final String HUNTID_KEY = "huntId";
