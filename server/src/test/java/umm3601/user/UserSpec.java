@@ -45,6 +45,7 @@ class UserSpec {
   }
 
   @Test
+  @SuppressWarnings("unlikely-arg-type")
   void usersAreNotEqualToOtherKindsOfThings() {
     user1._id = FAKE_ID_STRING_1;
     // a user is not equal to its id even though id is used for checking equality
