@@ -84,3 +84,16 @@
 .action-button:last-child {
   margin-right: 0;
 }
+
+.create-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 15px 30px; /* Adjusted padding for 2 times bigger */
+  font-size: 1.5em; /* Adjusted font size for 2 times bigger */
+  cursor: pointer;
+}

@@ -28,5 +28,11 @@
           </tbody>
         </table>
       </div>
+      <button class="create-button" (click)="toggleCreateForm()">Create a Hunt</button>
+      <div *ngIf="showCreateForm" class="create-form">
+        <!-- Form for creating a new hunt -->
+        <!-- Add input fields for time created, name of hunt, task list -->
+        <!-- Add buttons for submitting and canceling -->
+      </div>
   </div>
 </div>

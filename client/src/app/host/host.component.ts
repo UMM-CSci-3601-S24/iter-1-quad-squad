@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class HostComponent implements OnInit {
   hunts: any[];
+  showCreateForm: boolean = false;
 
   constructor(private http: HttpClient) { }
 
@@ -21,5 +22,9 @@ export class HostComponent implements OnInit {
       this.hunts = data;
     });
   }
+  toggleCreateForm(): void {
+    this.showCreateForm = !this.showCreateForm;
+  }
+
 }
 
