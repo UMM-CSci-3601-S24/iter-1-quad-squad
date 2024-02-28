@@ -14,15 +14,7 @@ const routes: Routes = [
   {path: '', component: HomeComponent, title: 'Home'},
   {path: 'login', component: LoginComponent, title: 'Login'},
   // {path: 'hunts', component: seeHuntComponent}, to be implemented, where a user can sees all their hunts
-<<<<<<< HEAD
-<<<<<<< Updated upstream
   // {path: 'hunt/:id', component: editHuntComponent}, to be implemented, page that you can see all tasks in a hunt and edit them
-=======
-  {path: 'huntId/:id', component: EditHuntComponent},
->>>>>>> Stashed changes
-=======
-  // {path: 'hunt/:id', component: editHuntComponent}, to be implemented, page that you can see all tasks in a hunt and edit them
->>>>>>> ffebfd91be49928973cac8a627fa87ac1217d7f9
   {path: 'users', component: UserListComponent, title: 'Users'},
   {path: 'users/new', component: AddUserComponent, title: 'Add User'},
   {path: 'users/:id', component: UserProfileComponent, title: 'User Profile'},
