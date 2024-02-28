@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { HostComponent } from './host/host.component';
 import { AddUserComponent } from './users/add-user.component';
 import { UserListComponent } from './users/user-list.component';
 import { UserProfileComponent } from './users/user-profile.component';
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent, title: 'Login'},
   // {path: 'hunts', component: seeHuntComponent}, to be implemented, where a user can sees all their hunts
   // {path: 'hunt/:id', component: editHuntComponent}, to be implemented, page that you can see all tasks in a hunt and edit them
+  {path: 'host', component: HostComponent, title: 'Host'},
   {path: 'users', component: UserListComponent, title: 'Users'},
   {path: 'users/new', component: AddUserComponent, title: 'Add User'},
   {path: 'users/:id', component: UserProfileComponent, title: 'User Profile'},
