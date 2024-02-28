@@ -1,9 +1,8 @@
 package umm3601.hunt;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,8 +31,10 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 import io.javalin.Javalin;
+import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
+import io.javalin.http.NotFoundResponse;
 import io.javalin.json.JavalinJackson;
 
 @SuppressWarnings({"MagicNumber"})
@@ -144,6 +145,29 @@ class HuntListControllerSpec {
     assertEquals("Science Building hunt", huntCaptor.getValue().name);
     assertEquals("hunt-owner-id", huntCaptor.getValue().ownerId);
     assertEquals("Hunt around the Science Building", huntCaptor.getValue().description);
+  }
+
+  @Test
+  void getHuntWithBadId() {
+    when(ctx.pathParam("id")).thenReturn("bad");
+
+    Throwable exception = assertThrows(BadRequestResponse.class, () -> {
+      huntListController.getHunt(ctx);
+    });
+
+    assertEquals("The requested hunt id wasn't a legal Mongo Object ID.", exception.getMessage());
+  }
+
+  @Test
+  void gethuntWithNonexistentId() {
+    String id = "567237438c239dh93";
+    when(ctx.pathParam("id")).thenReturn(id);
+
+    Throwable exception = assertThrows(NotFoundResponse.class, () -> {
+      huntListController.getHunt(ctx);
+    });
+
+    assertEquals("The requested hunt was not found", exception.getMessage());
   }
 }
 
