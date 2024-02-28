@@ -19,11 +19,12 @@ import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import io.javalin.http.NotFoundResponse;
+import umm3601.Controller;
 
-public class TaskListController {
+public class TaskListController implements Controller{
 
   private static final String API_TASKS = "api/tasks";
-  private static final String API_TASK_BY_ID = "api/tasks/{id}";
+  private static final String API_TASK_BY_ID = "api/hunt/{id}";
 
   static final String DESCRIPTION_KEY = "description";
   static final String HUNTID_KEY = "huntId";
