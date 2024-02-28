@@ -6,7 +6,7 @@ import { AddUserComponent } from './users/add-user.component';
 import { UserListComponent } from './users/user-list.component';
 import { UserProfileComponent } from './users/user-profile.component';
 import { CompanyListComponent } from './company-list/company-list.component';
-
+import { EditHuntComponent } from './hunt/edit-hunt.component';
 
 // Note that the 'users/new' route needs to come before 'users/:id'.
 // If 'users/:id' came first, it would accidentally catch requests to
