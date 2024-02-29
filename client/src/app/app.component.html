@@ -14,8 +14,12 @@
         <mat-icon matListItemIcon>login</mat-icon>
         Login
       </a>
+      <a mat-list-item routerLink="/host" routerLinkActive="drawer-list-item-active" (click)="drawer.close()">
+        <mat-icon matListItemIcon>account_circle</mat-icon>
+        Host
+      </a>
       <a mat-list-item routerLink="/users" routerLinkActive="drawer-list-item-active" (click)="drawer.close()">
-        <mat-icon matListItemIcon>people</mat-icon>
+        <mat-icon matListItemIcon>co_present</mat-icon>
         Users
       </a>
 
