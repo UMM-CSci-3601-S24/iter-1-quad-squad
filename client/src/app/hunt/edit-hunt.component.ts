@@ -2,14 +2,16 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject, takeUntil } from 'rxjs';
 import { Task } from "./task"
+import { Hunt } from './hunt';
 import { TaskService } from './task.service';
+import { HuntService } from './hunt.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { TaskElementComponent } from './task-element.component';
-
+import { map, switchMap } from 'rxjs/operators';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
@@ -17,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-edit-hunt-component',
@@ -31,7 +34,10 @@ export class EditHuntComponent implements OnInit, OnDestroy {
 public serverFilteredTasks: Task[];
 
 public taskDescription: string;
+public taskHunt: Hunt;
 public taskHuntId: string;
+public taskHuntName: string;
+public taskHuntDescription: string;
 public taskPosition: number;
 
 errMsg = '';
@@ -44,7 +50,7 @@ private ngUnsubscribe = new Subject<void>();
    * @param userService the `UserService` used to get users from the server
    * @param snackBar the `MatSnackBar` used to display feedback
    */
-  constructor(private taskService: TaskService, private snackBar: MatSnackBar) {
+  constructor(private taskService: TaskService, private huntService: HuntService, private snackBar: MatSnackBar, private route: ActivatedRoute) {
   }
 
 getTasksFromServer(): void {
@@ -69,9 +75,24 @@ this.taskService.getTasks(this.taskHuntId)
   },
 });
 }
+getHuntFromServer(): void {
+  this.route.paramMap.pipe(
+    map((paramMap: ParamMap) => paramMap.get('tasks')),
+    switchMap((huntId: string) => this.huntService.getHuntById(huntId)),
+    takeUntil(this.ngUnsubscribe)
+  ).subscribe({
+    next: hunt => {
+      this.taskHunt = hunt
+      this.taskHuntId = this.taskHunt._id
+      this.taskHuntName = this.taskHunt.name
+      this.taskHuntDescription = this.taskHunt.description
+    }
+  })
+}
 
 ngOnInit(): void {
-    this.getTasksFromServer();
+this.getHuntFromServer();
+this.getTasksFromServer();
 }
 
 ngOnDestroy() {
