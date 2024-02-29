@@ -22,11 +22,11 @@ import io.javalin.http.NotFoundResponse;
 
 public class HuntListController {
 
-  private static final String API_HUNTS = "api/tasks";
-  private static final String API_HUNTS_BY_ID = "api/tasks/{id}";
+  private static final String API_HUNTS = "api/hunts";
+  private static final String API_HUNTS_BY_ID = "api/hunts/{id}";
 
   static final String NAME_KEY = "name";
-  static final String DECRIPTION_KEY = "description";
+  static final String DESCRIPTION_KEY = "description";
   static final String OWNERID_KEY = "ownerId";
 
   private final JacksonMongoCollection<Hunt> huntCollection;
@@ -57,10 +57,10 @@ public class HuntListController {
   }
 
   public void getHunts(Context ctx) {
-    Bson combindFilter = constructFilter(ctx);
+    Bson combinedFilter = constructFilter(ctx);
 
     ArrayList<Hunt> matchingHunts = huntCollection
-      .find(combindFilter)
+      .find(combinedFilter)
       .into(new ArrayList<>());
 
     ctx.json(matchingHunts);
@@ -81,8 +81,8 @@ public class HuntListController {
     if (ctx.queryParamMap().containsKey(NAME_KEY)) {
       filters.add(eq(NAME_KEY, ctx.queryParam(NAME_KEY)));
     }
-    if (ctx.queryParamMap().containsKey(DECRIPTION_KEY)) {
-      filters.add(eq(DECRIPTION_KEY, ctx.queryParam(DECRIPTION_KEY)));
+    if (ctx.queryParamMap().containsKey(DESCRIPTION_KEY)) {
+      filters.add(eq(DESCRIPTION_KEY, ctx.queryParam(DESCRIPTION_KEY)));
     }
     if (ctx.queryParamMap().containsKey(OWNERID_KEY)) {
       filters.add(eq(OWNERID_KEY, ctx.queryParam(OWNERID_KEY)));
