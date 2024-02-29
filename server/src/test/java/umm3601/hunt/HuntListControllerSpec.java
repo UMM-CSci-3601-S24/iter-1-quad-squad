@@ -134,7 +134,7 @@ class HuntListControllerSpec {
   }
 
   @Test
-  void getHuntWithExistentId() throws IOException{
+  void getHuntWithExistentId() throws IOException {
     String id = testId.toHexString();
     when(ctx.pathParam("id")).thenReturn(id);
 
