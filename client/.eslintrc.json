@@ -31,7 +31,8 @@
               "_id"
             ]
           }
-        ]
+        ],
+        "@typescript-eslint/no-explicit-any": ["off"]
       }
     },
     {
