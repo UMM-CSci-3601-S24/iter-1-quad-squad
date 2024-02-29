@@ -1,8 +1,10 @@
 package umm3601.hunt;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -159,8 +161,8 @@ class HuntListControllerSpec {
   }
 
   @Test
-  void gethuntWithNonexistentId() {
-    String id = "567237438c239dh93";
+  void getHuntWithNonexistentId() {
+    String id = "588935f5c668650dc77df581";
     when(ctx.pathParam("id")).thenReturn(id);
 
     Throwable exception = assertThrows(NotFoundResponse.class, () -> {
