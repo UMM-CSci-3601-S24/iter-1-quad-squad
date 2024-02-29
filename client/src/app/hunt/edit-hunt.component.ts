@@ -11,6 +11,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { TaskElementComponent } from './task-element.component';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+
 import { map, switchMap } from 'rxjs/operators';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatOptionModule } from '@angular/material/core';
@@ -50,11 +52,12 @@ private ngUnsubscribe = new Subject<void>();
    * @param userService the `UserService` used to get users from the server
    * @param snackBar the `MatSnackBar` used to display feedback
    */
-  constructor(private taskService: TaskService, private huntService: HuntService, private snackBar: MatSnackBar, private route: ActivatedRoute) {
-  }
 
-getTasksFromServer(): void {
-this.taskService.getTasks(this.taskHuntId)
+  constructor(private taskService: TaskService, private huntService: HuntService, private snackBar: MatSnackBar, private route: ActivatedRoute) {
+
+
+getTasksFromServer(huntId): void {
+this.taskService.getTasks(huntId)
 .pipe(
   takeUntil(this.ngUnsubscribe)
 ).subscribe({
@@ -94,6 +97,7 @@ ngOnInit(): void {
 this.getHuntFromServer();
 this.getTasksFromServer();
 }
+
 
 ngOnDestroy() {
   this.ngUnsubscribe.next();
