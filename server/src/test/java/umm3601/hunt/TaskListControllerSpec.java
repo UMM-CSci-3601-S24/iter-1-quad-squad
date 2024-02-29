@@ -190,10 +190,11 @@ class TaskListControllerSpec {
     taskListController.getTasksByHuntId(ctx);
     // Capture the value
     verify(ctx).json(tasksByHuntIdListCaptor.capture());
-    // Check the value of the captured argument is as expected (3 hunts in test data)
+    // Check the value of the captured argument is as expected (3 hunts in test
+    // data)
     ArrayList<TaskByHuntId> result = tasksByHuntIdListCaptor.getValue();
     // 3 Hunts in test data
-      assertEquals(3, result.size());
+    assertEquals(3, result.size());
 
     // check that testHuntId has correct id and count
     TaskByHuntId testHuntId = result.get(0);
@@ -209,5 +210,55 @@ class TaskListControllerSpec {
     TaskByHuntId testHuntId3 = result.get(2);
     assertEquals("testHuntId3", testHuntId3._id);
     assertEquals(1, testHuntId3.count);
+  }
+
+  @Test
+  void testGetTasksByHuntIdWithSortBy() {
+    // Set up the context
+    when(ctx.queryParam("sortBy")).thenReturn("huntId");
+    taskListController.getTasksByHuntId(ctx);
+    // Capture the value
+    verify(ctx).json(tasksByHuntIdListCaptor.capture());
+    // Check the value of the captured argument is as expected (3 hunts in test
+    // data)
+    ArrayList<TaskByHuntId> result = tasksByHuntIdListCaptor.getValue();
+    // 3 Hunts in test data
+    assertEquals(3, result.size());
+
+    // check that testHuntId has correct id and count
+    TaskByHuntId testHuntId = result.get(0);
+    assertEquals("testHuntId", testHuntId._id);
+    assertEquals(3, testHuntId.count);
+
+    // check that testHuntId2 has correct id and count
+    TaskByHuntId testHuntId2 = result.get(1);
+    assertEquals("testHuntId2", testHuntId2._id);
+    assertEquals(1, testHuntId2.count);
+
+    // check that testHuntId3 has correct id and count
+    TaskByHuntId testHuntId3 = result.get(2);
+    assertEquals("testHuntId3", testHuntId3._id);
+    assertEquals(1, testHuntId3.count);
+  }
+
+  @Test
+  void testGetTasksByHuntIdWithSortOrderAndSortByAndFilter() {
+    // Set up the context
+    when(ctx.queryParam("sortOrder")).thenReturn("desc");
+    when(ctx.queryParam("sortBy")).thenReturn("huntId");
+    when(ctx.queryParam("huntId")).thenReturn("testHuntId");
+    taskListController.getTasksByHuntId(ctx);
+    // Capture the value
+    verify(ctx).json(tasksByHuntIdListCaptor.capture());
+    // Check the value of the captured argument is as expected (3 hunts in test
+    // data)
+    ArrayList<TaskByHuntId> result = tasksByHuntIdListCaptor.getValue();
+    // 3 Hunts in test data
+    assertEquals(3, result.size());
+
+    // check that testHuntId has correct id and count
+    TaskByHuntId testHuntId = result.get(0);
+    assertEquals("testHuntId3", testHuntId._id);
+    assertEquals(1, testHuntId.count);
   }
 }
