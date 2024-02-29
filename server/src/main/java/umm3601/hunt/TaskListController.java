@@ -1,6 +1,6 @@
 package umm3601.hunt;
 
-import static com.mongodb.client.model.Filters.and;
+// import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 
 import java.util.ArrayList;
@@ -64,10 +64,10 @@ public class TaskListController implements Controller {
   }
 
   public void getTasks(Context ctx) {
-    Bson combinedFilter = constructFilter(ctx);
+    // Bson combinedFilter = constructFilter(ctx);
 
     ArrayList<Task> matchingTasks = taskCollection
-        .find(combinedFilter)
+        .find() // .find(combinedFilter)
         .into(new ArrayList<>());
 
     ctx.json(matchingTasks);
@@ -85,26 +85,26 @@ public class TaskListController implements Controller {
     server.get(API_TASKS, this::getTasks);
   }
 
-  private Bson constructFilter(Context ctx) {
-    List<Bson> filters = new ArrayList<>();
-    if (ctx.queryParamMap().containsKey(DESCRIPTION_KEY)) {
-      filters.add(eq(DESCRIPTION_KEY, ctx.queryParam(DESCRIPTION_KEY)));
-    }
-    if (ctx.queryParamMap().containsKey(HUNTID_KEY)) {
-      filters.add(eq(HUNTID_KEY, ctx.queryParam(TASKS)));
-    }
-    if (ctx.queryParamMap().containsKey(POSITION_KEY)) {
-      int position = ctx.queryParamAsClass(DESCRIPTION_KEY, Integer.class)
-          .check(it -> it > 0, "Position must be a positive integer")
-          .check(it -> it < REASONABLE_TASK_LIMIT, "Position must be less than " + REASONABLE_TASK_LIMIT)
-          .get();
-      filters.add(eq(POSITION_KEY, Integer.parseInt(ctx.queryParam(POSITION_KEY))));
-    }
+  // private Bson constructFilter(Context ctx) {
+  //   List<Bson> filters = new ArrayList<>();
+  //   if (ctx.queryParamMap().containsKey(DESCRIPTION_KEY)) {
+  //     filters.add(eq(DESCRIPTION_KEY, ctx.queryParam(DESCRIPTION_KEY)));
+  //   }
+  //   if (ctx.queryParamMap().containsKey(HUNTID_KEY)) {
+  //     filters.add(eq(HUNTID_KEY, ctx.queryParam(TASKS)));
+  //   }
+  //   if (ctx.queryParamMap().containsKey(POSITION_KEY)) {
+  //     int position = ctx.queryParamAsClass(DESCRIPTION_KEY, Integer.class)
+  //         .check(it -> it > 0, "Position must be a positive integer")
+  //         .check(it -> it < REASONABLE_TASK_LIMIT, "Position must be less than " + REASONABLE_TASK_LIMIT)
+  //         .get();
+  //     filters.add(eq(POSITION_KEY, Integer.parseInt(ctx.queryParam(POSITION_KEY))));
+  //   }
 
-    Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
+  //   Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
 
-    return combinedFilter;
-  }
+  //   return combinedFilter;
+  // }
 
   // public void getTasksByHuntId(Context ctx) {
   // ArrayList<TaskByHuntId> matchingTasks = taskCollection
