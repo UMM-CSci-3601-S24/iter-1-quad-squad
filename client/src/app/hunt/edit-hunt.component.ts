@@ -21,7 +21,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+
 
 @Component({
   selector: 'app-edit-hunt-component',
@@ -54,10 +54,10 @@ private ngUnsubscribe = new Subject<void>();
    */
 
   constructor(private taskService: TaskService, private huntService: HuntService, private snackBar: MatSnackBar, private route: ActivatedRoute) {
+  }
 
-
-getTasksFromServer(huntId): void {
-this.taskService.getTasks(huntId)
+getTasksFromServer(): void {
+this.taskService.getTasks(this.taskHuntId)
 .pipe(
   takeUntil(this.ngUnsubscribe)
 ).subscribe({
@@ -106,3 +106,4 @@ ngOnDestroy() {
 }
 
 }
+
