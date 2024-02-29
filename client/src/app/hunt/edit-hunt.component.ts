@@ -75,6 +75,7 @@ this.taskService.getTasks(this.taskHuntId)
   },
 });
 }
+
 getHuntFromServer(): void {
   this.route.paramMap.pipe(
     map((paramMap: ParamMap) => paramMap.get('tasks')),
