@@ -9,13 +9,13 @@
         <form>
           <div class="form-group">
             <label for="username">Username:</label>
-            <input type="text" id="username" name="username">
+            <input type="text" id="username">
           </div>
           <div class="form-group">
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password">
+            <input type="password" id="password">
           </div>
-          <button type="submit" class="login-button">Login</button>
+          <button type="submit" class="login-button" (click)="sendToHost()">Login</button>
         </form>
         <div class="links">
           <a href="#">Create Account</a> | <a href="#">Forgot Password</a>
