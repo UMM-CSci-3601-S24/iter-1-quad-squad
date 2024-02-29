@@ -106,24 +106,6 @@ public class TaskListController implements Controller {
   //   return combinedFilter;
   // }
 
-  // public void getTasksByHuntId(Context ctx) {
-  // ArrayList<TaskByHuntId> matchingTasks = taskCollection
-  // .aggregate(
-  // List.of(
-  // new Document("$project", new Document("_id", 1).append("task",
-  // 1).append("huntId", 1)),
-  // new Document("$group", new Document("_id", "$huntID")
-  // .append("count", new Document("$sum", 1))
-  // .append("tasks", new Document("$push", new Document("_id",
-  // "$_id").append("task", "$task"))))),
-  // TaskByHuntId.class
-  // )
-  // .into(new ArrayList<>());
-
-  // ctx.json(matchingTasks);
-  // ctx.status(HttpStatus.OK);
-  // }
-
   public void getTasksByHuntId(Context ctx) {
     String sortBy = Objects.requireNonNullElse(ctx.queryParam("sortBy"), "_id");
     if (sortBy.equals("huntId")) {
