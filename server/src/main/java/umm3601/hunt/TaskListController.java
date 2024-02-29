@@ -25,6 +25,7 @@ public class TaskListController implements Controller{
 
   private static final String API_TASKS = "api/tasks/{id}"; //the id here is the hunt id by which all the tasks belong to
   private static final String API_TASK_BY_ID = "api/task/{id}";
+  private static final String TASKS = "tasks";
 
   static final String DESCRIPTION_KEY = "description";
   static final String HUNTID_KEY = "huntId";
@@ -87,7 +88,7 @@ public class TaskListController implements Controller{
       filters.add(eq(DESCRIPTION_KEY, ctx.queryParam(DESCRIPTION_KEY)));
     }
     if (ctx.queryParamMap().containsKey(HUNTID_KEY)) {
-      filters.add(eq(HUNTID_KEY, ctx.queryParam(HUNTID_KEY)));
+      filters.add(eq(HUNTID_KEY, ctx.queryParam(TASKS)));
     }
     if (ctx.queryParamMap().containsKey(POSITION_KEY)) {
       int position = ctx.queryParamAsClass(DESCRIPTION_KEY, Integer.class)
