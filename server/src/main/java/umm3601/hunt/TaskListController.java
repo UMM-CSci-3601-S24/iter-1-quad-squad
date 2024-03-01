@@ -119,10 +119,10 @@ public class TaskListController implements Controller{
   //   }
 
 
-    Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
+  //   Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
 
-    return combinedFilter;
-  }
+  //   return combinedFilter;
+  // }
 
   public void getTasksByHuntId(Context ctx) {
     String sortBy = Objects.requireNonNullElse(ctx.queryParam("sortBy"), "_id");
