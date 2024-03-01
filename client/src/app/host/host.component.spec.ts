@@ -11,7 +11,7 @@ describe('HostComponent', () => {
       imports: [HostComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(HostComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -20,4 +20,6 @@ describe('HostComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
 });
