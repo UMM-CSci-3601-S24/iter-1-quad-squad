@@ -5,6 +5,7 @@ import static com.mongodb.client.model.Filters.eq;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.bson.Document;
 import org.bson.UuidRepresentation;
@@ -37,10 +38,10 @@ public class TaskListController implements Controller{
 
   public TaskListController(MongoDatabase database) {
     taskCollection = JacksonMongoCollection.builder().build(
-      database,
-      "tasks",
-      Task.class,
-      UuidRepresentation.STANDARD);
+        database,
+        "tasks",
+        Task.class,
+        UuidRepresentation.STANDARD);
   }
 
   public void getTask(Context ctx) {
@@ -95,6 +96,7 @@ public class TaskListController implements Controller{
     server.get(API_TASKS, this::getTasks);
   }
 
+
   private Bson constructSortingOrder(Context ctx){
     Bson sortingOrder = Sorts.ascending("position");
     return sortingOrder;
@@ -116,8 +118,35 @@ public class TaskListController implements Controller{
   //     filters.add(eq(POSITION_KEY, Integer.parseInt(ctx.queryParam(POSITION_KEY))));
   //   }
 
+
     Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
 
     return combinedFilter;
+  }
+
+  public void getTasksByHuntId(Context ctx) {
+    String sortBy = Objects.requireNonNullElse(ctx.queryParam("sortBy"), "_id");
+    if (sortBy.equals("huntId")) {
+      sortBy = "_id";
+    }
+
+    String sortOrder = Objects.requireNonNullElse(ctx.queryParam("sortOrder"), "asc");
+    Bson sortingOrder = sortOrder.equals("desc") ? Sorts.descending(sortBy) : Sorts.ascending(sortBy);
+
+    ArrayList<TaskByHuntId> matchingTasks = taskCollection
+        .aggregate(
+            List.of(
+                new Document("$project", new Document("_id", 1).append("tasks", 1).append("huntId", 1)),
+                new Document("$group", new Document("_id", "$huntId")
+                    .append("count", new Document("$sum", 1))
+                    .append("tasks", new Document("$push", new Document("_id", "$_id").append("task", "$task")))),
+
+                new Document("$sort", sortingOrder)),
+            TaskByHuntId.class)
+        .into(new ArrayList<>());
+
+    ctx.json(matchingTasks);
+    ctx.status(HttpStatus.OK);
+
   }
 }

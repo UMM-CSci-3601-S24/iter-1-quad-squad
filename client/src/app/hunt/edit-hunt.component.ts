@@ -34,13 +34,13 @@ import { MatCardModule } from '@angular/material/card';
 
 export class EditHuntComponent implements OnInit, OnDestroy {
   public serverFilteredTasks: Task[];
-
   public taskDescription: string;
   public taskHunt: Hunt;
   public taskHuntId: string;
   public taskHuntName: string;
   public taskHuntDescription: string;
   public taskPosition: number;
+
 
   errMsg = '';
   private ngUnsubscribe = new Subject<void>();
@@ -106,6 +106,7 @@ export class EditHuntComponent implements OnInit, OnDestroy {
       // },
     });
   }
+
 
 
   ngOnInit(): void {
