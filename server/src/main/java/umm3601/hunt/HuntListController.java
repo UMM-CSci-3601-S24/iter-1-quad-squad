@@ -1,6 +1,6 @@
 package umm3601.hunt;
 
-import static com.mongodb.client.model.Filters.and;
+// import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import io.javalin.http.HttpStatus;
 import io.javalin.http.NotFoundResponse;
 import umm3601.Controller;
 
-public class HuntListController implements Controller{
+public class HuntListController implements Controller {
 
   private static final String API_HUNTS = "api/hunts";
   private static final String API_HUNTS_BY_ID = "api/hunt/{id}";

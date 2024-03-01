@@ -23,7 +23,7 @@ import io.javalin.http.HttpStatus;
 import io.javalin.http.NotFoundResponse;
 import umm3601.Controller;
 
-public class TaskListController implements Controller{
+public class TaskListController implements Controller {
 
   private static final String API_TASKS = "api/tasks/{huntId}";
   private static final String API_TASK_BY_ID = "api/task/{id}";
@@ -97,7 +97,7 @@ public class TaskListController implements Controller{
   }
 
 
-  private Bson constructSortingOrder(Context ctx){
+  private Bson constructSortingOrder(Context ctx) {
     Bson sortingOrder = Sorts.ascending("position");
     return sortingOrder;
   }
