@@ -5,6 +5,7 @@ import static com.mongodb.client.model.Filters.eq;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.bson.Document;
 import org.bson.UuidRepresentation;
@@ -13,17 +14,21 @@ import org.bson.types.ObjectId;
 import org.mongojack.JacksonMongoCollection;
 
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Sorts;
 
 import io.javalin.Javalin;
 import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import io.javalin.http.NotFoundResponse;
+import umm3601.Controller;
 
-public class TaskListController {
+public class TaskListController implements Controller {
+//the id here is the hunt id by which all the tasks belong to
+  private static final String API_TASKS = "api/tasks/{id}";
 
-  private static final String API_TASKS = "api/tasks";
-  private static final String API_TASK_BY_ID = "api/tasks/{id}";
+  private static final String API_TASK_BY_ID = "api/task/{id}";
+  private static final String TASKS = "tasks";
 
   static final String DESCRIPTION_KEY = "description";
   static final String HUNTID_KEY = "huntId";
@@ -35,10 +40,10 @@ public class TaskListController {
 
   public TaskListController(MongoDatabase database) {
     taskCollection = JacksonMongoCollection.builder().build(
-      database,
-      "tasks",
-      Task.class,
-      UuidRepresentation.STANDARD);
+        database,
+        "tasks",
+        Task.class,
+        UuidRepresentation.STANDARD);
   }
 
   public void getTask(Context ctx) {
@@ -62,8 +67,8 @@ public class TaskListController {
     Bson combinedFilter = constructFilter(ctx);
 
     ArrayList<Task> matchingTasks = taskCollection
-      .find(combinedFilter)
-      .into(new ArrayList<>());
+        .find(combinedFilter)
+        .into(new ArrayList<>());
 
     ctx.json(matchingTasks);
     ctx.status(HttpStatus.OK);
@@ -86,18 +91,44 @@ public class TaskListController {
       filters.add(eq(DESCRIPTION_KEY, ctx.queryParam(DESCRIPTION_KEY)));
     }
     if (ctx.queryParamMap().containsKey(HUNTID_KEY)) {
-      filters.add(eq(HUNTID_KEY, ctx.queryParam(HUNTID_KEY)));
+      filters.add(eq(HUNTID_KEY, ctx.queryParam(TASKS)));
     }
     if (ctx.queryParamMap().containsKey(POSITION_KEY)) {
       int position = ctx.queryParamAsClass(DESCRIPTION_KEY, Integer.class)
-      .check(it -> it > 0, "Position must be a positive integer")
-      .check(it -> it < REASONABLE_TASK_LIMIT, "Position must be less than " + REASONABLE_TASK_LIMIT)
-      .get();
+          .check(it -> it > 0, "Position must be a positive integer")
+          .check(it -> it < REASONABLE_TASK_LIMIT, "Position must be less than " + REASONABLE_TASK_LIMIT)
+          .get();
       filters.add(eq(POSITION_KEY, Integer.parseInt(ctx.queryParam(POSITION_KEY))));
     }
 
     Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
 
     return combinedFilter;
+  }
+
+  public void getTasksByHuntId(Context ctx) {
+    String sortBy = Objects.requireNonNullElse(ctx.queryParam("sortBy"), "_id");
+    if (sortBy.equals("huntId")) {
+      sortBy = "_id";
+    }
+
+    String sortOrder = Objects.requireNonNullElse(ctx.queryParam("sortOrder"), "asc");
+    Bson sortingOrder = sortOrder.equals("desc") ? Sorts.descending(sortBy) : Sorts.ascending(sortBy);
+
+    ArrayList<TaskByHuntId> matchingTasks = taskCollection
+        .aggregate(
+            List.of(
+                new Document("$project", new Document("_id", 1).append("tasks", 1).append("huntId", 1)),
+                new Document("$group", new Document("_id", "$huntId")
+                    .append("count", new Document("$sum", 1))
+                    .append("tasks", new Document("$push", new Document("_id", "$_id").append("task", "$task")))),
+
+                new Document("$sort", sortingOrder)),
+            TaskByHuntId.class)
+        .into(new ArrayList<>());
+
+    ctx.json(matchingTasks);
+    ctx.status(HttpStatus.OK);
+
   }
 }
