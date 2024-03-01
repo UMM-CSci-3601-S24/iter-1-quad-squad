@@ -57,7 +57,7 @@ private ngUnsubscribe = new Subject<void>();
   }
 
 getTasksFromServer(): void {
-this.taskService.getTasks(this.taskHuntId)
+this.taskService.getTasks('65de46d19a719626538626bc')
 .pipe(
   takeUntil(this.ngUnsubscribe)
 ).subscribe({
@@ -80,18 +80,53 @@ this.taskService.getTasks(this.taskHuntId)
 }
 
 getHuntFromServer(): void {
-  this.route.paramMap.pipe(
-    map((paramMap: ParamMap) => paramMap.get('tasks')),
-    switchMap((huntId: string) => this.huntService.getHuntById(huntId)),
+  // this.route.paramMap.pipe(
+  //   map((paramMap: ParamMap) => paramMap.get('tasks')),
+  //   switchMap((huntId: string) => this.huntService.getHuntById(huntId)),
+  //   takeUntil(this.ngUnsubscribe)
+  // ).subscribe({
+  //   next: hunt => {
+  //     this.taskHunt = hunt
+  //     this.taskHuntId = this.taskHunt._id
+  //     this.taskHuntName = this.taskHunt.name
+  //     this.taskHuntDescription = this.taskHunt.description
+  //   },
+  //   error: (err) => {
+  //     if (err.error instanceof ErrorEvent) {
+  //       this.errMsg = `Problem in the client – Error: ${err.error.message}`;
+  //     } else {
+  //       this.errMsg = `Problem contacting the server – Error Code: ${err.status}\nMessage: ${err.message}`;
+  //     }
+  //     this.snackBar.open(
+  //       this.errMsg,
+  //       'OK',
+  //       // The message will disappear after 6 seconds.
+  //       { duration: 10000 });
+  //   },
+  // });
+  this.huntService.getHuntById('65de46d19a719626538626bc')
+  .pipe(
     takeUntil(this.ngUnsubscribe)
-  ).subscribe({
+).subscribe({
     next: hunt => {
       this.taskHunt = hunt
       this.taskHuntId = this.taskHunt._id
       this.taskHuntName = this.taskHunt.name
       this.taskHuntDescription = this.taskHunt.description
-    }
-  })
+    },
+    // error: (err) => {
+    //   if (err.error instanceof ErrorEvent) {
+    //     this.errMsg = `Problem in the client – Error: ${err.error.message}`;
+    //   } else {
+    //     this.errMsg = `Problem contacting the server – Error Code: ${err.status}\nMessage: ${err.message}`;
+    //   }
+    //   this.snackBar.open(
+    //     this.errMsg,
+    //     'OK',
+    //     // The message will disappear after 6 seconds.
+    //     { duration: 10000 });
+    // },
+  });
 }
 
 ngOnInit(): void {

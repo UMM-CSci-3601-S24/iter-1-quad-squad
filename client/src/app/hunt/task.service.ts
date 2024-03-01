@@ -27,7 +27,7 @@ constructor(private httpClient: HttpClient) {
 // }
 
 getTasks(huntId: string): Observable<Task[]>{
-  return this.httpClient.get<Task[]>(this.taskUrl + 'huntId/' + huntId)
+  return this.httpClient.get<Task[]>(this.taskUrl + 'tasks/' + huntId)
 
 }
 

@@ -13,17 +13,19 @@ import org.bson.types.ObjectId;
 import org.mongojack.JacksonMongoCollection;
 
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Sorts;
 
 import io.javalin.Javalin;
 import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import io.javalin.http.NotFoundResponse;
+import umm3601.Controller;
 
-public class TaskListController {
+public class TaskListController implements Controller{
 
-  private static final String API_TASKS = "api/tasks";
-  private static final String API_TASK_BY_ID = "api/tasks/{id}";
+  private static final String API_TASKS = "api/tasks/{huntId}";
+  private static final String API_TASK_BY_ID = "api/task/{id}";
 
   static final String DESCRIPTION_KEY = "description";
   static final String HUNTID_KEY = "huntId";
@@ -59,15 +61,28 @@ public class TaskListController {
   }
 
   public void getTasks(Context ctx) {
-    Bson combinedFilter = constructFilter(ctx);
 
-    ArrayList<Task> matchingTasks = taskCollection
-      .find(combinedFilter)
-      .into(new ArrayList<>());
+    Bson sortingOrder = constructSortingOrder(ctx);
 
-    ctx.json(matchingTasks);
+    String huntId = ctx.pathParam("huntId");
+    ArrayList<Task> huntTasks;
+    try {
+    huntTasks = taskCollection
+    .find(eq(HUNTID_KEY, huntId))
+    .sort(sortingOrder)
+    .into(new ArrayList<>());
+
+    } catch (IllegalArgumentException e) {
+      throw new BadRequestResponse("The requested task id wasn't a legal Mongo Object ID.");
+    }
+    if (huntTasks.isEmpty()) {
+      throw new NotFoundResponse("The requested task was not found");
+    } else {
+
+    ctx.json(huntTasks);
     ctx.status(HttpStatus.OK);
   }
+}
 
   /**
    * @param server
@@ -80,21 +95,26 @@ public class TaskListController {
     server.get(API_TASKS, this::getTasks);
   }
 
-  private Bson constructFilter(Context ctx) {
-    List<Bson> filters = new ArrayList<>();
-    if (ctx.queryParamMap().containsKey(DESCRIPTION_KEY)) {
-      filters.add(eq(DESCRIPTION_KEY, ctx.queryParam(DESCRIPTION_KEY)));
-    }
-    if (ctx.queryParamMap().containsKey(HUNTID_KEY)) {
-      filters.add(eq(HUNTID_KEY, ctx.queryParam(HUNTID_KEY)));
-    }
-    if (ctx.queryParamMap().containsKey(POSITION_KEY)) {
-      int position = ctx.queryParamAsClass(DESCRIPTION_KEY, Integer.class)
-      .check(it -> it > 0, "Position must be a positive integer")
-      .check(it -> it < REASONABLE_TASK_LIMIT, "Position must be less than " + REASONABLE_TASK_LIMIT)
-      .get();
-      filters.add(eq(POSITION_KEY, Integer.parseInt(ctx.queryParam(POSITION_KEY))));
-    }
+  private Bson constructSortingOrder(Context ctx){
+    Bson sortingOrder = Sorts.ascending("position");
+    return sortingOrder;
+  }
+
+  // private Bson constructFilter(Context ctx) {
+  //   List<Bson> filters = new ArrayList<>();
+  //   if (ctx.queryParamMap().containsKey(DESCRIPTION_KEY)) {
+  //     filters.add(eq(DESCRIPTION_KEY, ctx.queryParam(DESCRIPTION_KEY)));
+  //   }
+  //   if (ctx.queryParamMap().containsKey(HUNTID_KEY)) {
+  //     filters.add(eq(HUNTID_KEY, ctx.queryParam(HUNTID_KEY)));
+  //   }
+  //   if (ctx.queryParamMap().containsKey(POSITION_KEY)) {
+  //     int position = ctx.queryParamAsClass(DESCRIPTION_KEY, Integer.class)
+  //     .check(it -> it > 0, "Position must be a positive integer")
+  //     .check(it -> it < REASONABLE_TASK_LIMIT, "Position must be less than " + REASONABLE_TASK_LIMIT)
+  //     .get();
+  //     filters.add(eq(POSITION_KEY, Integer.parseInt(ctx.queryParam(POSITION_KEY))));
+  //   }
 
     Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
 
