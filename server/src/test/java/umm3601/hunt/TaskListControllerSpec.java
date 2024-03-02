@@ -311,6 +311,22 @@ class TaskListControllerSpec {
   }
 
   @Test
+  void addInvalidPosition() {
+    String testNewTask = """
+        {
+          "description": "Take a picture of the sky",
+          "huntId": "testHuntId999",
+          "position": "0"
+        }
+        """;
+    when(ctx.bodyValidator(Task.class))
+        .then(value -> new BodyValidator<>(testNewTask, Task.class, javalinJackson));
+    assertThrows(ValidationException.class, () -> {
+      taskListController.addNewTask(ctx);
+    });
+  }
+
+  @Test
   void testDeleteTask() throws IOException {
     String testID = testId.toHexString();
     when(ctx.pathParam("id")).thenReturn(testID);
