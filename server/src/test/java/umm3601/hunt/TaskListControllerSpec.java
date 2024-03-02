@@ -1,6 +1,7 @@
 package umm3601.hunt;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -39,6 +40,9 @@ import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import io.javalin.http.NotFoundResponse;
 import io.javalin.json.JavalinJackson;
+import io.javalin.validation.BodyValidator;
+import umm3601.user.User;
+
 import static com.mongodb.client.model.Filters.eq;
 
 @SuppressWarnings({ "MagicNumber" })
@@ -262,5 +266,33 @@ class TaskListControllerSpec {
     TaskByHuntId testHuntId = result.get(0);
     assertEquals("testHuntId3", testHuntId._id);
     assertEquals(1, testHuntId.count);
+  }
+
+  @Test
+  void testAddNewTask() {
+    String testNewTask = """
+        {
+          "description": "Take a picture of a mural",
+          "huntId": "testHuntId777",
+          "position": "1"
+        }
+          """;
+    when(ctx.bodyValidator(Task.class))
+        .then(value -> new BodyValidator<Task>(testNewTask, Task.class, javalinJackson));
+
+    taskListController.addNewTask(ctx);
+    verify(ctx).json(mapCaptor.capture());
+
+    verify(ctx).status(HttpStatus.CREATED);
+
+    Document addedTask = db.getCollection("tasks")
+        .find(eq("_id", new ObjectId(mapCaptor.getValue().get("id")))).first();
+
+        assertNotEquals("", addedTask.get("_id"));
+        assertEquals("Take a picture of a mural", addedTask.get("description"));
+        assertEquals("testhuntId777", addedTask.get("huntId"));
+        assertEquals("1", addedTask.get("position"));
+
+
   }
 }
