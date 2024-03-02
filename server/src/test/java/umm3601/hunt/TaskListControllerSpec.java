@@ -290,8 +290,8 @@ class TaskListControllerSpec {
 
         assertNotEquals("", addedTask.get("_id"));
         assertEquals("Take a picture of a mural", addedTask.get("description"));
-        assertEquals("testhuntId777", addedTask.get("huntId"));
-        assertEquals("1", addedTask.get("position"));
+        assertEquals("testHuntId777", addedTask.get("huntId"));
+        assertEquals(1, addedTask.get("position"));
 
 
   }
