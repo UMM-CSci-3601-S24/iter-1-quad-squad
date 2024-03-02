@@ -155,7 +155,7 @@ public class TaskListController implements Controller {
 
   public void addNewTask(Context ctx) {
     Task newTask = ctx.bodyValidator(Task.class)
-        .check(task -> task.description != null, "Task must have a description")
+        .check(task -> task.description instanceof String && task.description != "", "Task must have a description")
         .check(task -> task.huntId != null, "Task must have a huntId")
         .check(task -> task.position > 0, "Task's position must be greater than 0")
         .get();
