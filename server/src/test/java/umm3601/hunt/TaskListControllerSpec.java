@@ -41,6 +41,7 @@ import io.javalin.http.HttpStatus;
 import io.javalin.http.NotFoundResponse;
 import io.javalin.json.JavalinJackson;
 import io.javalin.validation.BodyValidator;
+import io.javalin.validation.ValidationException;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -287,10 +288,26 @@ class TaskListControllerSpec {
     Document addedTask = db.getCollection("tasks")
         .find(eq("_id", new ObjectId(mapCaptor.getValue().get("id")))).first();
 
-        assertNotEquals("", addedTask.get("_id"));
-        assertEquals("Take a picture of a mural", addedTask.get("description"));
-        assertEquals("testHuntId777", addedTask.get("huntId"));
-        assertEquals(1, addedTask.get("position"));
+    assertNotEquals("", addedTask.get("_id"));
+    assertEquals("Take a picture of a mural", addedTask.get("description"));
+    assertEquals("testHuntId777", addedTask.get("huntId"));
+    assertEquals(1, addedTask.get("position"));
+  }
+
+  @Test
+  void addInvalidDescriptionTask() {
+    String testNewTask = """
+        {
+          "description": "",
+          "huntId": "testHuntId888",
+          "position": "1"
+        }
+        """;
+    when(ctx.bodyValidator(Task.class))
+        .then(value -> new BodyValidator<>(testNewTask, Task.class, javalinJackson));
+    assertThrows(ValidationException.class, () -> {
+      taskListController.addNewTask(ctx);
+    });
   }
 
   @Test
@@ -298,7 +315,7 @@ class TaskListControllerSpec {
     String testID = testId.toHexString();
     when(ctx.pathParam("id")).thenReturn(testID);
 
-    //Task Exists
+    // Task Exists
     assertEquals(1, db.getCollection("tasks").countDocuments(eq("_id", new ObjectId(testID))));
 
     taskListController.deleteTask(ctx);
@@ -306,8 +323,5 @@ class TaskListControllerSpec {
     verify(ctx).status(HttpStatus.OK);
 
     assertEquals(0, db.getCollection("tasks").countDocuments(eq("_id", new ObjectId(testID))));
-
-
-
   }
 }
