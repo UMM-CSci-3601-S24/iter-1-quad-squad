@@ -1,27 +1,30 @@
-<div class="flex-row">
-  <mat-card-header>
-    <mat-card-title class="task-list-title">Tasks</mat-card-title> <!--Want to put hunt name here but not sure how yet, will update-->
-  </mat-card-header>
-</div>
-<div class="flex-row">
-  @if (serverFilteredTasks) {
-    <div class="flex-1" >
-      <div class="task-list-item-container flex-row gap-8 flex-wrap">
-        @for (task of serverFilteredTasks; track task._id) {
-          <app-task-list-element class="task-list-item" [task]="task"></app-task-list-element>
-        }
+<div class="background">
+  <div class="flex-row">
+    <mat-card-header>
+      <mat-card-title class="task-list-title">{{taskHuntName}} Tasks</mat-card-title>
+      <mat-card-subtitle class="task-list-subtitle">{{taskHuntDescription}}</mat-card-subtitle>
+    </mat-card-header>
+  </div>
+  <div class="flex-row">
+    @if (serverFilteredTasks) {
+      <div class="flex-1" >
+        <div class="task-list-item-container flex-row gap-8 flex-wrap">
+          @for (task of serverFilteredTasks; track task._id) {
+            <app-task-list-element class="task-list-item" [task]="task"></app-task-list-element>
+          }
+        </div>
       </div>
-    </div>
-  } @else {
-    <div class="flex-1" class="user-error">
-      <mat-error>
-        There was a problem loading the tasks. Possibly the server is down or perhaps there are network
-        issues.
-      </mat-error>
-      <mat-error>
-        Please wait a bit and try again or start the server.
-      </mat-error>
-    </div>
-  }
+    } @else {
+      <div class="flex-1" class="user-error">
+        <mat-error>
+          There was a problem loading the tasks. Possibly the server is down or perhaps there are network
+          issues.
+        </mat-error>
+        <mat-error>
+          Please wait a bit and try again or start the server.
+        </mat-error>
+      </div>
+    }
 
+  </div>
 </div>
