@@ -8,11 +8,11 @@
   <div class="flex-row">
     @if (serverFilteredTasks) {
       <div class="flex-1" >
-        <div class="task-list-item-container flex-row gap-8 flex-wrap">
+        <mat-nav-list class="task-nav-list">
           @for (task of serverFilteredTasks; track task._id) {
             <app-task-list-element class="task-list-item" [task]="task"></app-task-list-element>
           }
-        </div>
+      </mat-nav-list>
       </div>
     } @else {
       <div class="flex-1" class="user-error">
