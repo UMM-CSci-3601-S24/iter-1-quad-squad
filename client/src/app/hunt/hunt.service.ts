@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-// import { Task } from './task'
 import { Hunt } from './hunt';
 // import { map } from 'rxjs/operators';
 
@@ -18,6 +17,10 @@ export class HuntService{
 
 getHuntById(id: string): Observable<Hunt> {
   return this.httpClient.get<Hunt>(`${this.huntUrl}/${id}`);
+}
+
+getHunts(): Observable<Hunt[]> {
+  return this.httpClient.get<Hunt[]>(this.huntUrl + "s")
 }
 
 }
