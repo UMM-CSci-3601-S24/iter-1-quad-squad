@@ -16,6 +16,7 @@ import org.mongojack.JacksonMongoCollection;
 
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Sorts;
+import com.mongodb.client.result.DeleteResult;
 
 import io.javalin.Javalin;
 import io.javalin.http.BadRequestResponse;
@@ -69,10 +70,10 @@ public class TaskListController implements Controller {
     String huntId = ctx.pathParam("huntId");
     ArrayList<Task> huntTasks;
     try {
-    huntTasks = taskCollection
-    .find(eq(HUNTID_KEY, huntId))
-    .sort(sortingOrder)
-    .into(new ArrayList<>());
+      huntTasks = taskCollection
+          .find(eq(HUNTID_KEY, huntId))
+          .sort(sortingOrder)
+          .into(new ArrayList<>());
 
     } catch (IllegalArgumentException e) {
       throw new BadRequestResponse("The requested task id wasn't a legal Mongo Object ID.");
@@ -81,10 +82,10 @@ public class TaskListController implements Controller {
       throw new NotFoundResponse("The requested task was not found");
     } else {
 
-    ctx.json(huntTasks);
-    ctx.status(HttpStatus.OK);
+      ctx.json(huntTasks);
+      ctx.status(HttpStatus.OK);
+    }
   }
-}
 
   /**
    * @param server
@@ -97,32 +98,32 @@ public class TaskListController implements Controller {
     server.get(API_TASKS, this::getTasks);
   }
 
-
   private Bson constructSortingOrder(Context ctx) {
     Bson sortingOrder = Sorts.ascending("position");
     return sortingOrder;
   }
 
   // private Bson constructFilter(Context ctx) {
-  //   List<Bson> filters = new ArrayList<>();
-  //   if (ctx.queryParamMap().containsKey(DESCRIPTION_KEY)) {
-  //     filters.add(eq(DESCRIPTION_KEY, ctx.queryParam(DESCRIPTION_KEY)));
-  //   }
-  //   if (ctx.queryParamMap().containsKey(HUNTID_KEY)) {
-  //     filters.add(eq(HUNTID_KEY, ctx.queryParam(HUNTID_KEY)));
-  //   }
-  //   if (ctx.queryParamMap().containsKey(POSITION_KEY)) {
-  //     int position = ctx.queryParamAsClass(DESCRIPTION_KEY, Integer.class)
-  //     .check(it -> it > 0, "Position must be a positive integer")
-  //     .check(it -> it < REASONABLE_TASK_LIMIT, "Position must be less than " + REASONABLE_TASK_LIMIT)
-  //     .get();
-  //     filters.add(eq(POSITION_KEY, Integer.parseInt(ctx.queryParam(POSITION_KEY))));
-  //   }
+  // List<Bson> filters = new ArrayList<>();
+  // if (ctx.queryParamMap().containsKey(DESCRIPTION_KEY)) {
+  // filters.add(eq(DESCRIPTION_KEY, ctx.queryParam(DESCRIPTION_KEY)));
+  // }
+  // if (ctx.queryParamMap().containsKey(HUNTID_KEY)) {
+  // filters.add(eq(HUNTID_KEY, ctx.queryParam(HUNTID_KEY)));
+  // }
+  // if (ctx.queryParamMap().containsKey(POSITION_KEY)) {
+  // int position = ctx.queryParamAsClass(DESCRIPTION_KEY, Integer.class)
+  // .check(it -> it > 0, "Position must be a positive integer")
+  // .check(it -> it < REASONABLE_TASK_LIMIT, "Position must be less than " +
+  // REASONABLE_TASK_LIMIT)
+  // .get();
+  // filters.add(eq(POSITION_KEY,
+  // Integer.parseInt(ctx.queryParam(POSITION_KEY))));
+  // }
 
+  // Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
 
-  //   Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
-
-  //   return combinedFilter;
+  // return combinedFilter;
   // }
 
   public void getTasksByHuntId(Context ctx) {
@@ -153,14 +154,28 @@ public class TaskListController implements Controller {
 
   public void addNewTask(Context ctx) {
     Task newTask = ctx.bodyValidator(Task.class)
-    .check(task -> task.description != null, "Task must have a description")
-    .check(task -> task.huntId != null, "Task must have a huntId")
-    .check(task -> task.position > 0, "Task's position must be greater than 0")
-    .get();
+        .check(task -> task.description != null, "Task must have a description")
+        .check(task -> task.huntId != null, "Task must have a huntId")
+        .check(task -> task.position > 0, "Task's position must be greater than 0")
+        .get();
 
     taskCollection.insertOne(newTask);
 
     ctx.json(Map.of("id", newTask._id));
     ctx.status(HttpStatus.CREATED);
+  }
+
+  public void deleteTask(Context ctx) {
+    String id = ctx.pathParam("id");
+    DeleteResult deleteResult = taskCollection.deleteOne(eq("_id", new ObjectId(id)));
+
+    if (deleteResult.getDeletedCount() != 1) {
+      ctx.status(HttpStatus.NOT_FOUND);
+      throw new NotFoundResponse(
+          "Was unable to delete ID "
+              + id
+              + "; perhaps illegal ID or an ID for an item not in the system?");
+    }
+    ctx.status(HttpStatus.OK);
   }
 }
