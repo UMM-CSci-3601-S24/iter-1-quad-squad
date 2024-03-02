@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -337,6 +338,24 @@ class TaskListControllerSpec {
     taskListController.deleteTask(ctx);
 
     verify(ctx).status(HttpStatus.OK);
+
+    assertEquals(0, db.getCollection("tasks").countDocuments(eq("_id", new ObjectId(testID))));
+  }
+
+  @Test
+  void tryToDeleteNotFoundTask() throws IOException {
+    String testID = testId.toHexString();
+    when(ctx.pathParam("id")).thenReturn(testID);
+
+      taskListController.deleteTask(ctx);
+    // Task Deleted
+    assertEquals(0, db.getCollection("tasks").countDocuments(eq("_id", new ObjectId(testID))));
+
+    assertThrows(NotFoundResponse.class, () -> {
+      taskListController.deleteTask(ctx);
+    });
+
+    verify(ctx).status(HttpStatus.NOT_FOUND);
 
     assertEquals(0, db.getCollection("tasks").countDocuments(eq("_id", new ObjectId(testID))));
   }
