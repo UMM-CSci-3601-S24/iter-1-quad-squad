@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -38,6 +39,7 @@ import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import io.javalin.http.NotFoundResponse;
 import io.javalin.json.JavalinJackson;
+import static com.mongodb.client.model.Filters.eq;
 
 @SuppressWarnings({ "MagicNumber" })
 class TaskListControllerSpec {
@@ -132,15 +134,15 @@ class TaskListControllerSpec {
 
   @Test
   void canGetAllTasks() throws IOException {
-    when(ctx.queryParamMap()).thenReturn(Collections.emptyMap());
+    when(ctx.pathParam("huntId")).thenReturn("testHuntId");
 
     taskListController.getTasks(ctx);
 
     verify(ctx).json(taskListCaptor.capture());
     verify(ctx).status(HttpStatus.OK);
-
+    Bson filter = eq("huntId", "testHuntId");
     assertEquals(
-        db.getCollection("tasks").countDocuments(),
+        db.getCollection("tasks").countDocuments(filter),
         taskListCaptor.getValue().size());
   }
 
