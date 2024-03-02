@@ -11,15 +11,21 @@
 }
 
 
-.task-list-item-container {
+.task-nav-list {
   width: 100%;
-  position: relative;
-  background-color: rgba(0, 0, 0, 0.5);
+  // position: absolute;
+  // background-color: rgba(0, 0, 0, 0.5);
   color: white;
+  // top: 30%; /* Adjust this value as per your requirement */
+  // transform: translateY(-50%); /* Center vertically */
+  // left: 50%; /* Center horizontally */
+  // transform: translateX(-50%); /* Center horizontally */
+  margin-top: 20%; /* Adjust this value as per your requirement */
+  margin-bottom: 20px;
 }
 
 .task-list-item {
-  margin-bottom: 10px;
+  // margin-bottom: 10px;
   flex: 1 1 280px;
 }
 
