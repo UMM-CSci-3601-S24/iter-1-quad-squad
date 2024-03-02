@@ -29,6 +29,7 @@ public class TaskListController implements Controller {
 
   private static final String API_TASKS = "api/tasks/{huntId}";
   private static final String API_TASK_BY_ID = "api/task/{id}";
+  private static final String API_ADD_TASK = "api/task/new/{huntId}";
 
   static final String DESCRIPTION_KEY = "description";
   static final String HUNTID_KEY = "huntId";
