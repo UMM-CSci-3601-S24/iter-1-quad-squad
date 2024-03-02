@@ -97,6 +97,8 @@ public class TaskListController implements Controller {
     server.get(API_TASK_BY_ID, this::getTask);
     // Get the list of all Tasks
     server.get(API_TASKS, this::getTasks);
+
+    server.post(API_ADD_TASK, this::addNewTask);
   }
 
   private Bson constructSortingOrder(Context ctx) {
