@@ -1,6 +1,6 @@
 package umm3601.hunt;
 
-import static com.mongodb.client.model.Filters.and;
+// import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 
 import java.util.ArrayList;
