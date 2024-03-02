@@ -33,6 +33,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.result.DeleteResult;
 
 import io.javalin.Javalin;
 import io.javalin.http.BadRequestResponse;
@@ -292,6 +293,22 @@ class TaskListControllerSpec {
         assertEquals("Take a picture of a mural", addedTask.get("description"));
         assertEquals("testHuntId777", addedTask.get("huntId"));
         assertEquals(1, addedTask.get("position"));
+  }
+
+  @Test
+  void testDeleteTask() throws IOException {
+    String testID = testId.toHexString();
+    when(ctx.pathParam("id")).thenReturn(testID);
+
+    //Task Exists
+    assertEquals(1, db.getCollection("tasks").countDocuments(eq("_id", new ObjectId(testID))));
+
+    taskListController.deleteTask(ctx);
+
+    verify(ctx).status(HttpStatus.OK);
+
+    assertEquals(0, db.getCollection("tasks").countDocuments(eq("_id", new ObjectId(testID))));
+
 
 
   }
