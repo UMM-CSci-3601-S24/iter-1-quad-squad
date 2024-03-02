@@ -19,11 +19,12 @@ import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import io.javalin.http.NotFoundResponse;
+import umm3601.Controller;
 
-public class HuntListController {
+public class HuntListController implements Controller {
 
   private static final String API_HUNTS = "api/hunts";
-  private static final String API_HUNTS_BY_ID = "api/hunts/{id}";
+  private static final String API_HUNTS_BY_ID = "api/hunt/{id}";
 
   static final String NAME_KEY = "name";
   static final String DESCRIPTION_KEY = "description";

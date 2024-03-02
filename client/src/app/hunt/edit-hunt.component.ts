@@ -28,22 +28,22 @@ import { MatCardModule } from '@angular/material/card';
   templateUrl: 'edit-hunt.component.html',
   styleUrls: ['edit-hunt.component.scss'],
   providers: [],
-    standalone: true,
-    imports: [MatCardModule, MatFormFieldModule, MatInputModule, FormsModule, MatSelectModule, MatOptionModule, MatRadioModule, TaskElementComponent, MatListModule, RouterLink, MatButtonModule, MatTooltipModule, MatIconModule]
+  standalone: true,
+  imports: [MatCardModule, MatFormFieldModule, MatInputModule, FormsModule, MatSelectModule, MatOptionModule, MatRadioModule, TaskElementComponent, MatListModule, RouterLink, MatButtonModule, MatTooltipModule, MatIconModule]
 })
 
 export class EditHuntComponent implements OnInit, OnDestroy {
-public serverFilteredTasks: Task[];
+  public serverFilteredTasks: Task[];
+  public taskDescription: string;
+  public taskHunt: Hunt;
+  public taskHuntId: string;
+  public taskHuntName: string;
+  public taskHuntDescription: string;
+  public taskPosition: number;
 
-public taskDescription: string;
-public taskHunt: Hunt;
-public taskHuntId: string;
-public taskHuntName: string;
-public taskHuntDescription: string;
-public taskPosition: number;
 
-errMsg = '';
-private ngUnsubscribe = new Subject<void>();
+  errMsg = '';
+  private ngUnsubscribe = new Subject<void>();
 
 
 
@@ -56,54 +56,68 @@ private ngUnsubscribe = new Subject<void>();
   constructor(private taskService: TaskService, private huntService: HuntService, private snackBar: MatSnackBar, private route: ActivatedRoute) {
   }
 
-getTasksFromServer(): void {
-this.taskService.getTasks(this.taskHuntId)
-.pipe(
-  takeUntil(this.ngUnsubscribe)
-).subscribe({
-  next: (returnedTasks) => {
-    this.serverFilteredTasks = returnedTasks;
-  },
-  error: (err) => {
-    if (err.error instanceof ErrorEvent) {
-      this.errMsg = `Problem in the client – Error: ${err.error.message}`;
-    } else {
-      this.errMsg = `Problem contacting the server – Error Code: ${err.status}\nMessage: ${err.message}`;
-    }
-    this.snackBar.open(
-      this.errMsg,
-      'OK',
-      // The message will disappear after 6 seconds.
-      { duration: 6000 });
-  },
-});
-}
+  getTasksFromServer(): void {
+    this.taskService.getTasks(this.taskHuntId)
+      .pipe(
+        takeUntil(this.ngUnsubscribe)
+      ).subscribe({
+        next: (returnedTasks) => {
+          this.serverFilteredTasks = returnedTasks;
+        },
+        error: (err) => {
+          if (err.error instanceof ErrorEvent) {
+            this.errMsg = `Problem in the client – Error: ${err.error.message}`;
+          } else {
+            this.errMsg = `Problem contacting the server – Error Code: ${err.status}\nMessage: ${err.message}`;
+          }
+          this.snackBar.open(
+            this.errMsg,
+            'OK',
+            // The message will disappear after 6 seconds.
+            { duration: 6000 });
+        },
+      });
+  }
 
-getHuntFromServer(): void {
-  this.route.paramMap.pipe(
-    map((paramMap: ParamMap) => paramMap.get('tasks')),
-    switchMap((huntId: string) => this.huntService.getHuntById(huntId)),
-    takeUntil(this.ngUnsubscribe)
-  ).subscribe({
-    next: hunt => {
-      this.taskHunt = hunt
-      this.taskHuntId = this.taskHunt._id
-      this.taskHuntName = this.taskHunt.name
-      this.taskHuntDescription = this.taskHunt.description
-    }
-  })
-}
+  getHuntFromServer(): void {
+    this.route.paramMap.pipe(
+      map((paramMap: ParamMap) => paramMap.get('huntId')),
+      switchMap((huntId: string) => this.huntService.getHuntById(huntId)),
+      takeUntil(this.ngUnsubscribe)
+    ).subscribe({
+      next: hunt => {
+        this.taskHunt = hunt
+        this.taskHuntId = this.taskHunt._id
+        this.taskHuntName = this.taskHunt.name
+        this.taskHuntDescription = this.taskHunt.description
+        this.getTasksFromServer()
+      },
+      // error: (err) => {
+      //   if (err.error instanceof ErrorEvent) {
+      //     this.errMsg = `Problem in the client – Error: ${err.error.message}`;
+      //   } else {
+      //     this.errMsg = `Problem contacting the server – Error Code: ${err.status}\nMessage: ${err.message}`;
+      //   }
+      //   this.snackBar.open(
+      //     this.errMsg,
+      //     'OK',
+      //     // The message will disappear after 6 seconds.
+      //     { duration: 10000 });
+      // },
+    });
+  }
 
-ngOnInit(): void {
-this.getHuntFromServer();
-this.getTasksFromServer();
-}
 
 
-ngOnDestroy() {
-  this.ngUnsubscribe.next();
-  this.ngUnsubscribe.complete();
-}
+  ngOnInit(): void {
+    this.getHuntFromServer();
+  }
+
+
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
 
 }
 

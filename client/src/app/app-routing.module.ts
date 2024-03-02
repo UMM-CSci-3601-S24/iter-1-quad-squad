@@ -18,7 +18,7 @@ const routes: Routes = [
   // {path: 'hunts', component: seeHuntComponent}, to be implemented, where a user can sees all their hunts
   // {path: 'hunt/:id', component: editHuntComponent}, to be implemented, page that you can see all tasks in a hunt and edit them
   {path: 'host', component: HostComponent, title: 'Host'},
-  {path: 'tasks/:id', component: EditHuntComponent}, //the id here is the hunt id from which all of the tasks displayed belong to
+  {path: 'tasks/:huntId', component: EditHuntComponent}, //the id here is the hunt id from which all of the tasks displayed belong to
   {path: 'users', component: UserListComponent, title: 'Users'},
   {path: 'users/new', component: AddUserComponent, title: 'Add User'},
   {path: 'users/:id', component: UserProfileComponent, title: 'User Profile'},
