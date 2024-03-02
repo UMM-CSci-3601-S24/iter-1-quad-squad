@@ -5,6 +5,7 @@ import static com.mongodb.client.model.Filters.eq;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import org.bson.Document;
@@ -148,5 +149,18 @@ public class TaskListController implements Controller {
     ctx.json(matchingTasks);
     ctx.status(HttpStatus.OK);
 
+  }
+
+  public void addNewTask(Context ctx) {
+    Task newTask = ctx.bodyValidator(Task.class)
+    .check(task -> task.description != null, "Task must have a description")
+    .check(task -> task.huntId != null, "Task must have a huntId")
+    .check(task -> task.position > 0, "Task's position must be greater than 0")
+    .get();
+
+    taskCollection.insertOne(newTask);
+
+    ctx.json(Map.of("id", newTask._id));
+    ctx.status(HttpStatus.CREATED);
   }
 }
