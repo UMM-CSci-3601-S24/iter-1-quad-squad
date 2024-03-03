@@ -11,7 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { TaskElementComponent } from './task-element.component';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 import { map, switchMap } from 'rxjs/operators';
 import { MatRadioModule } from '@angular/material/radio';
@@ -53,7 +53,7 @@ export class EditHuntComponent implements OnInit, OnDestroy {
    * @param snackBar the `MatSnackBar` used to display feedback
    */
 
-  constructor(private taskService: TaskService, private huntService: HuntService, private snackBar: MatSnackBar, private route: ActivatedRoute) {
+  constructor(private router: Router, private taskService: TaskService, private huntService: HuntService, private snackBar: MatSnackBar, private route: ActivatedRoute) {
   }
 
   getTasksFromServer(): void {
@@ -107,7 +107,9 @@ export class EditHuntComponent implements OnInit, OnDestroy {
     });
   }
 
-
+  navigateToCreateTask(): void {
+    this.router.navigate(['/task/new/', this.taskHuntId]);
+  }
 
   ngOnInit(): void {
     this.getHuntFromServer();

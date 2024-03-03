@@ -1,5 +1,5 @@
 <div class="background">
-  <div class="flex-row">
+  <div>
     <mat-card-header>
       <mat-card-title class="task-list-title">{{taskHuntName}} Tasks</mat-card-title>
       <mat-card-subtitle class="task-list-subtitle">{{taskHuntDescription}}</mat-card-subtitle>
@@ -25,6 +25,6 @@
         </mat-error>
       </div>
     }
-
   </div>
+  <button class="create-button" (click)="navigateToCreateTask();">Add Task</button>
 </div>
