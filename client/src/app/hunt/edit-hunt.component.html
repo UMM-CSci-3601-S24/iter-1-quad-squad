@@ -26,5 +26,5 @@
       </div>
     }
   </div>
-  <button class="create-button" (click)="navigateToCreateTask();">Add Task</button>
+  <button class="create-button" routerLink="['../','task','new', this.taskHuntId]" (click)="navigateToCreateTask();">Add Task</button>
 </div>
