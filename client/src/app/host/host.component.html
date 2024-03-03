@@ -1,5 +1,3 @@
-<!-- host.component.html -->
-
 <div class="background">
   <div class="flex-container">
     <mat-card class="host-card">
@@ -11,9 +9,8 @@
       <table class="hunt-table">
         <thead>
           <tr>
-            <th>Name</th>
+            <th>Name of Hunt</th>
             <th>Description</th>
-            <th>Owner ID</th>
           </tr>
         </thead>
         <tbody>
@@ -21,24 +18,16 @@
             <div class="flex-1" >
               <mat-nav-list class="task-nav-list">
                 @for (task of serverFilteredTasks; track task._id) {
-                  <td>{{ taskHuntName }}</td>
-                  <td>{{ taskHuntDescription }}</td>
-                  <td>{{ taskHuntId }}</td>
+                  <app-host class="task-list-item" [task]="task"></app-host>
                 }
             </mat-nav-list>
-            </div>
-          } @else {
-            <div class="flex-1" class="user-error">
-              <mat-card class="host-card">
-                There was a problem loading the tasks. Possibly the server is down or perhaps there are network
-                issues.
-              </mat-card>
             </div>
           }
         </tbody>
       </table>
     </div>
-    <button class="create-button" [routerLink]="['/create']">Create a Hunt</button>
+
+      <button class="create-button" [routerLink]="['/create']">Create a Hunt</button>
 
   </div>
 </div>

@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Hunt } from '../hunt/hunt';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { MatCard } from '@angular/material/card';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-create-hunt',
   templateUrl: './create-hunt.component.html',
   styleUrls: ['./create-hunt.component.scss'],
-  imports: [CommonModule, FormsModule, MatCard],
+  imports: [CommonModule, FormsModule, MatCard, RouterModule],
+  providers: [HttpClient, HttpClientModule],
   standalone: true
 })
 

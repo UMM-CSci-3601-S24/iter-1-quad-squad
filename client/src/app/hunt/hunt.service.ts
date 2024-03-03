@@ -10,7 +10,7 @@ import { Hunt } from './hunt';
 })
 
 export class HuntService{
-  readonly huntUrl: string = `${environment.apiUrl}hunt`;
+  readonly huntUrl: string = `${environment.apiUrl}`;
 
   constructor(private httpClient: HttpClient) {
   }

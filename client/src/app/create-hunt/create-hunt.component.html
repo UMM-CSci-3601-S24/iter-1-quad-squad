@@ -21,7 +21,7 @@
           <label for="ownerId">Owner ID:</label>
           <input type="text" id="ownerId" name="ownerId" (input)="onOwnerIdInput($event)" [(ngModel)]="hunt.ownerId" required>
         </div>
-        <button type="submit" class="create-button">Create Hunt</button>
+        <button type="submit" class="create-button" [routerLink]="['/host']">Create Hunt</button>
       </form>
     </div>
   </div>
