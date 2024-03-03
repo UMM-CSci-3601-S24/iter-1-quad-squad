@@ -31,7 +31,7 @@ getTasks(huntId: string): Observable<Task[]>{
 
 }
 
-addTask(newTask: Partial<Task>): Observable<string> {
-  return this.httpClient.post<{id: string}>(this.taskUrl, newTask).pipe(map(res => res.id));
+addTask(newTask: Partial<Task>, huntId: string): Observable<string> {
+  return this.httpClient.post<{id: string}>(this.taskUrl + 'task/new/' + huntId, newTask).pipe(map(res => res.id));
 }
 }
