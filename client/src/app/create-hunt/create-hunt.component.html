@@ -1,0 +1,28 @@
+<div class="background">
+  <div class="flex-container">
+    <mat-card class="create-hunt-card">
+      <div class="sign">
+        <h1>Create a Hunt</h1>
+      </div>
+    </mat-card>
+    <div class="form-container">
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" (input)="onNameInput($event)" [(ngModel)]="hunt.name" required>
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" (input)="onDescriptionInput($event)" [(ngModel)]="hunt.description" required></textarea>
+
+
+        </div>
+        <div class="form-group">
+          <label for="ownerId">Owner ID:</label>
+          <input type="text" id="ownerId" name="ownerId" (input)="onOwnerIdInput($event)" [(ngModel)]="hunt.ownerId" required>
+        </div>
+        <button type="submit" class="create-button">Create Hunt</button>
+      </form>
+    </div>
+  </div>
+</div>
