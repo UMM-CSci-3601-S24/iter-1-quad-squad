@@ -20,7 +20,7 @@ getHuntById(id: string): Observable<Hunt> {
 }
 
 getHunts(): Observable<Hunt[]> {
-  return this.httpClient.get<Hunt[]>(this.huntUrl + "s")
+  return this.httpClient.get<Hunt[]>(this.huntUrl + "s");
 }
 
 }

@@ -1,3 +1,5 @@
+<!-- host.component.html -->
+
 <div class="background">
   <div class="flex-container">
     <mat-card class="host-card">
@@ -9,31 +11,34 @@
       <table class="hunt-table">
         <thead>
           <tr>
-            <th>Time Created</th>
-            <th>Name of Hunt</th>
-            <th>Task List</th>
-            <th></th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Owner ID</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let hunt of hunts">
-            <td>{{ hunt.timeCreated }}</td>
-            <td>{{ hunt.nameOfHunt }}</td>
-            <td>{{ hunt.taskList.join(', ') }}</td>
-            <td>
-              <button class="action-button">Start a Hunt</button>
-              <button class="action-button">Delete Hunt</button>
-              <button class="action-button" (click)="navigateToHuntDetails(hunt.id)">See Details</button>
-            </td>
-          </tr>
+          @if (serverFilteredTasks) {
+            <div class="flex-1" >
+              <mat-nav-list class="task-nav-list">
+                @for (task of serverFilteredTasks; track task._id) {
+                  <td>{{ taskHuntName }}</td>
+                  <td>{{ taskHuntDescription }}</td>
+                  <td>{{ taskHuntId }}</td>
+                }
+            </mat-nav-list>
+            </div>
+          } @else {
+            <div class="flex-1" class="user-error">
+              <mat-card class="host-card">
+                There was a problem loading the tasks. Possibly the server is down or perhaps there are network
+                issues.
+              </mat-card>
+            </div>
+          }
         </tbody>
       </table>
     </div>
-    <button class="create-button" (click)="toggleCreateForm()">Create a Hunt</button>
-    <div *ngIf="showCreateForm" class="create-form">
-      <!-- Form for creating a new hunt -->
-      <!-- Add input fields for time created, name of hunt, task list -->
-      <!-- Add buttons for submitting and canceling -->
-    </div>
+    <button class="create-button" href="/users">Create a Hunt</button>
+
   </div>
 </div>
