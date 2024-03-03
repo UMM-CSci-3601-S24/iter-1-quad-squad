@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { of } from 'rxjs';
@@ -79,9 +79,11 @@ describe('TaskService', () => {
 
         taskService.addTask(testTasks[1], 'first_hunt_id').subscribe((new_task_id) => {
           expect(new_task_id).toBe(task_id);
+
           expect(mockedMethod)
           .withContext('one call')
           .toHaveBeenCalledTimes(1);
+
           expect(mockedMethod)
           .withContext('talks to the correct endpoint')
           .toHaveBeenCalledWith(taskService.taskUrl + 'task/new/first_hunt_id', testTasks[1])
