@@ -20,6 +20,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
+import { EditHuntComponent } from '../hunt/edit-hunt.component';
 
 @Component({
   selector: 'app-host',
@@ -29,6 +30,7 @@ import { RouterTestingModule } from '@angular/router/testing';
   standalone: true,
   imports: [RouterTestingModule, HttpClientModule, MatCardModule, MatFormFieldModule, MatInputModule, FormsModule, MatSelectModule, MatOptionModule, MatRadioModule, MatListModule, RouterLink, MatButtonModule, MatTooltipModule, MatIconModule, CommonModule]
 })
+
 
 export class HostComponent implements OnInit, OnDestroy {
 

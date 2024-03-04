@@ -6,6 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Hunt } from'../hunt/hunt';
 
+
+
 @Injectable({
   providedIn: 'root'
 })

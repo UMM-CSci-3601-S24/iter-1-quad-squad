@@ -11,34 +11,21 @@ import { EditHuntComponent } from './hunt/edit-hunt.component';
 import { AddTaskComponent } from './hunt/add-task.component';
 import { CreateHuntComponent } from './create-hunt/create-hunt.component';
 
-// Note that the 'users/new' route needs to come before 'users/:id'.
-// If 'users/:id' came first, it would accidentally catch requests to
-// 'users/new'; the router would just think that the string 'new' is a user ID.
 const routes: Routes = [
-  {path: '', component: HomeComponent, title: 'Home'},
-  {path: 'login', component: LoginComponent, title: 'Login'},
-  // {path: 'hunts', component: seeHuntComponent}, to be implemented, where a user can sees all their hunts
-  // {path: 'hunt/:id', component: editHuntComponent}, to be implemented, page that you can see all tasks in a hunt and edit them
-  {path: 'host', component: HostComponent, title: 'Host'},
-  {path: 'tasks/:huntId', component: EditHuntComponent}, //the id here is the hunt id from which all of the tasks displayed belong to
-  {path: 'task/new/:huntId', component: AddTaskComponent, title: 'Add Task'},
-  {path: 'users', component: UserListComponent, title: 'Users'},
-  {path: 'users/new', component: AddUserComponent, title: 'Add User'},
-  {path: 'users/:id', component: UserProfileComponent, title: 'User Profile'},
-  {path: 'companies', component: CompanyListComponent, title: 'Companies'},
-  {path: 'hunt/new', component: CreateHuntComponent, title: 'Create Hunt'}
-
+  { path: '', component: HomeComponent, title: 'Home' },
+  { path: 'login', component: LoginComponent, title: 'Login' },
+  { path: 'host', component: HostComponent, title: 'Host' },
+  { path: 'task/new/:huntId', component: AddTaskComponent, title: 'Add Task' },
+  { path: 'tasks/:huntId', component: EditHuntComponent }, // Route to view tasks for a hunt
+  { path: 'users', component: UserListComponent, title: 'Users' },
+  { path: 'users/new', component: AddUserComponent, title: 'Add User' },
+  { path: 'users/:id', component: UserProfileComponent, title: 'User Profile' },
+  { path: 'companies', component: CompanyListComponent, title: 'Companies' },
+  { path: 'hunt/new', component: CreateHuntComponent, title: 'Create Hunt' }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
 export class AppRoutingModule { }
-
