@@ -10,4 +10,13 @@ describe("Hunt list", () => {
   beforeEach(() => {
     page.navigateTo();
   });
+
+  it("Should have a table of hunts", () => {
+    page.getHuntTable().should("exist");
+  });
+
+  it("Should show 2 hunts (3 table rows)", () => {
+    page.getHuntTable().find("tr").should("have.length", 3);
+  });
+
 });
