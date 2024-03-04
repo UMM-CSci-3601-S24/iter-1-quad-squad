@@ -298,8 +298,6 @@ class HuntListControllerSpec {
     String testID = testId.toHexString();
     when(ctx.pathParam("id")).thenReturn(testID);
 
-      huntListController.deleteHunt(ctx);
-
     assertEquals(1, db.getCollection("hunts").countDocuments(eq("_id", new ObjectId(testID))));
 
     huntListController.deleteHunt(ctx);
