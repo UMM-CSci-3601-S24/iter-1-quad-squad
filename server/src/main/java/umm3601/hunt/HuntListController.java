@@ -5,11 +5,13 @@ import static com.mongodb.client.model.Filters.eq;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.bson.Document;
 import org.bson.UuidRepresentation;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
+import org.jetbrains.annotations.NotNull;
 import org.mongojack.JacksonMongoCollection;
 
 import com.mongodb.client.MongoDatabase;
@@ -25,6 +27,7 @@ public class HuntListController implements Controller {
 
   private static final String API_HUNTS = "api/hunts";
   private static final String API_HUNTS_BY_ID = "api/hunt/{id}";
+  private static final String API_ADD_HUNT = "api/hunt/new";
 
   static final String NAME_KEY = "name";
   static final String DESCRIPTION_KEY = "description";
@@ -75,6 +78,7 @@ public class HuntListController implements Controller {
   public void addRoutes(Javalin server) {
     server.get(API_HUNTS_BY_ID, this::getHunt);
     server.get(API_HUNTS, this::getHunts);
+    server.post(API_ADD_HUNT, this::addNewHunt);
   }
 
   private Bson constructFilter(Context ctx) {
@@ -92,5 +96,18 @@ public class HuntListController implements Controller {
     Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
 
     return combinedFilter;
+  }
+
+  public void addNewHunt(Context ctx) {
+    Hunt newHunt = ctx.bodyValidator(Hunt.class)
+        .check(hunt -> hunt.description instanceof String && hunt.description != "", "Task must have a description")
+        .check(hunt -> hunt.ownerId != null, "Task must have an ownerId")
+        .check(hunt -> hunt.name instanceof String && hunt.name != "", "Task must have a name")
+        .get();
+
+    huntCollection.insert(newHunt);
+
+    ctx.json(Map.of("id", newHunt._id));
+    ctx.status(HttpStatus.CREATED);
   }
 }

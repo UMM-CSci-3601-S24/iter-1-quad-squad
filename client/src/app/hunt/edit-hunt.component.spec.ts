@@ -33,6 +33,9 @@ import { MatCardModule } from '@angular/material/card';
 })
 
 export class EditHuntComponent implements OnInit, OnDestroy {
+navigateToCreateTask() {
+throw new Error('Method not implemented.');
+}
   public serverFilteredTasks: Task[];
   public taskDescription: string;
   public taskHunt: Hunt;

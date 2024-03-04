@@ -46,13 +46,20 @@
   margin-left: auto; /* Center the dashboard horizontally */
   margin-right: auto;
   justify-content: left;
+  overflow-x: auto;
+}
+.dashboard {
+  margin-top: 20px;
+  width: 80%; /* Set the width of the dashboard to 80% */
+  margin-left: 10%; /* Set left margin to 10% */
+  margin-right: 10%; /* Set right margin to 10% */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  max-height: 60vh; /* Set maximum height to 60% of viewport height */
 }
 
 .hunt-table {
-  width: 100%; /* Set the width of the table to 400% (4 times wider) */
+  width: 100%; /* Set table width to 100% */
   border-collapse: collapse;
-  margin-left: 0; /* Center the dashboard horizontally */
-  margin-right: auto;
 }
 
 .hunt-table th,
@@ -60,6 +67,10 @@
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
+}
+.button-column {
+  width: 1%; /* Initial width to fit content */
+  white-space: wrap; /* Prevent wrapping */
 }
 
 .hunt-table th {
@@ -71,15 +82,26 @@
   background-color: #3b3b3b;
 }
 
+/* Common styles for action buttons */
+/* Common styles for action buttons */
 .action-button {
   background-color: rgba(0, 0, 0, 0.5);
   color: #fff;
   border: none;
   border-radius: 5px;
-  padding: 10px 20px;
+  padding: 10px 20px; /* Common padding for action buttons */
   cursor: pointer;
   margin-right: 10px;
+  width: auto; /* Adjust width to automatically fit the content */
+  height: auto; /* Adjust height to automatically fit the content */
 }
+
+/* Set explicit width and height for all buttons */
+.start-button, .delete-button, .details-button {
+  width: 150px; /* Adjust width as needed */
+  height: 40px; /* Adjust height as needed */
+}
+
 
 .action-button:last-child {
   margin-right: 0;

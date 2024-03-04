@@ -26,7 +26,7 @@ const routes: Routes = [
   {path: 'users/new', component: AddUserComponent, title: 'Add User'},
   {path: 'users/:id', component: UserProfileComponent, title: 'User Profile'},
   {path: 'companies', component: CompanyListComponent, title: 'Companies'},
-  {path: 'create', component: CreateHuntComponent, title: 'Create Hunt'}
+  {path: 'hunt/new', component: CreateHuntComponent, title: 'Create Hunt'}
 
 ];
 
@@ -34,4 +34,11 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
 export class AppRoutingModule { }
+

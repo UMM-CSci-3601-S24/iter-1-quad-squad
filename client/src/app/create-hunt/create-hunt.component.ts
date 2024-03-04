@@ -4,14 +4,17 @@ import { Hunt } from '../hunt/hunt';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { MatCard } from '@angular/material/card';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { HuntService } from '../hunt/hunt.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { RouterTestingModule } from '@angular/router/testing';
 
 @Component({
   selector: 'app-create-hunt',
   templateUrl: './create-hunt.component.html',
   styleUrls: ['./create-hunt.component.scss'],
-  imports: [CommonModule, FormsModule, MatCard, RouterModule],
-  providers: [HttpClient, HttpClientModule],
+  imports: [RouterTestingModule, CommonModule, FormsModule, MatCard, RouterModule, HttpClientModule],
+  providers: [HttpClient, Router],
   standalone: true
 })
 
@@ -20,7 +23,9 @@ import { RouterModule } from '@angular/router';
 export class CreateHuntComponent {
   huntForm: FormGroup;
 
-  constructor(private httpClient: HttpClient, private fb: FormBuilder) {
+  constructor(private httpClient: HttpClient, private fb: FormBuilder,
+    private route: ActivatedRoute, private huntService: HuntService,
+    private snackBar: MatSnackBar, private router: Router) {
     this.huntForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
@@ -28,21 +33,13 @@ export class CreateHuntComponent {
     });
   }
 
-  onSubmit(): void {
-    if (this.huntForm.valid) {
-      const formData = this.huntForm.value;
-      // Submit the form data to your backend or perform any necessary action
-      console.log(formData);
-    } else {
-      // Handle form validation errors
-    }
-  }
 
    hunt: Hunt = {
      name: '',
      description: '',
      ownerId: '',
-     _id: ''
+     _id: '',
+     id: undefined
    };
 
    onDescriptionInput(event: Event): void {
@@ -65,7 +62,28 @@ export class CreateHuntComponent {
       name: '',
       description: '',
       ownerId: '',
-      _id: ''
+      _id: '',
+      id: undefined
     };
+  }
+
+  onSubmit() {
+    this.huntService.addHunt(this.huntForm.value).subscribe({
+      next: () => {
+        this.snackBar.open(
+          `Added hunt`,
+          null,
+          { duration: 2000 }
+        );
+        this.router.navigate(['/hunts/']);
+      },
+      error: err => {
+        this.snackBar.open(
+          `Problem contacting the server – Error Code: ${err.status}\nMessage: ${err.message}`,
+          'OK',
+          { duration: 5000 }
+        );
+      },
+    });
   }
 }
