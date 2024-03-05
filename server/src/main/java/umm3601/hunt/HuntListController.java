@@ -102,7 +102,7 @@ public class HuntListController implements Controller {
 
   public void getHuntsByOwnerId(Context ctx) {
     String sortBy = Objects.requireNonNullElse(ctx.queryParam("sortBy"), "_id");
-    if (sortBy.equals("huntId")) {
+    if (sortBy.equals("ownerId")) {
       sortBy = "_id";
     }
 
