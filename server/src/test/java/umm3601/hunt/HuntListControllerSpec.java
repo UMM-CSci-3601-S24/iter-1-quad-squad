@@ -223,7 +223,7 @@ class HuntListControllerSpec {
 
   @Test
   void testGetHuntsByOwnerIdWithSortOrderAndSortByAndFilter() {
-    when(ctx.queryParam("sortOrder")).thenReturn("desc");
+    when(ctx.queryParam("sortingOrder")).thenReturn("desc");
     when(ctx.queryParam("sortBy")).thenReturn("testOwnerId");
     huntListController.getHuntsByOwnerId(ctx);
     verify(ctx).json(huntsByOwnerIdListCaptor.capture());
