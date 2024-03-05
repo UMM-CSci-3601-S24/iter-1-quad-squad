@@ -20,7 +20,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
-import { EditHuntComponent } from '../hunt/edit-hunt.component';
+
 
 @Component({
   selector: 'app-host',
@@ -28,7 +28,7 @@ import { EditHuntComponent } from '../hunt/edit-hunt.component';
   styleUrls: ['host.component.scss'],
   providers: [HttpClient],
   standalone: true,
-  imports: [RouterTestingModule, HttpClientModule, MatCardModule, MatFormFieldModule, MatInputModule, FormsModule, MatSelectModule, MatOptionModule, MatRadioModule, MatListModule, RouterLink, MatButtonModule, MatTooltipModule, MatIconModule, CommonModule]
+  imports: [RouterTestingModule,HttpClientModule, MatCardModule, MatFormFieldModule, MatInputModule, FormsModule, MatSelectModule, MatOptionModule, MatRadioModule, MatListModule, RouterLink, MatButtonModule, MatTooltipModule, MatIconModule, CommonModule]
 })
 
 
