@@ -13,11 +13,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Observable } from 'rxjs';
+// import { Observable } from 'rxjs';
 import { MockTaskService } from 'src/testing/task.service.mock';
 import { MockHuntService } from 'src/testing/hunt.service.mock';
-import { Hunt } from './hunt';
-import { Task } from './task';
+// import { Hunt } from './hunt';
+// import { Task } from './task';
 import { TaskElementComponent } from './task-element.component';
 import { EditHuntComponent } from './edit-hunt.component';
 import { TaskService } from './task.service';
@@ -45,7 +45,7 @@ const COMMON_IMPORTS: unknown[] = [
 ];
 
 describe('edit hunt', () => {
-  let editHunt: EditHuntComponent;
+  // let editHunt: EditHuntComponent;
   let fixture: ComponentFixture<EditHuntComponent>
 
   beforeEach(() => {
@@ -59,19 +59,10 @@ beforeEach(waitForAsync(() => {
   // Compile all the components in the test bed
   // so that everything's ready to go.
     TestBed.compileComponents().then(() => {
-      /* Create a fixture of the UserListComponent. That
-       * allows us to get an instance of the component
-       * (userList, below) that we can control in
-       * the tests.
-       */
+
       fixture = TestBed.createComponent(EditHuntComponent);
-      editHunt = fixture.componentInstance;
-      /* Tells Angular to sync the data bindings between
-       * the model and the DOM. This ensures, e.g., that the
-       * `userList` component actually requests the list
-       * of users from the `MockUserService` so that it's
-       * up to date before we start running tests on it.
-       */
+      // editHunt = fixture.componentInstance;
+
       fixture.detectChanges();
     });
   }));
