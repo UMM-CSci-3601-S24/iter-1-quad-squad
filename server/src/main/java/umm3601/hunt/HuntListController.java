@@ -5,6 +5,8 @@ import static com.mongodb.client.model.Filters.eq;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import org.bson.Document;
 import org.bson.UuidRepresentation;
@@ -13,6 +15,8 @@ import org.bson.types.ObjectId;
 import org.mongojack.JacksonMongoCollection;
 
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Sorts;
+import com.mongodb.client.result.DeleteResult;
 
 import io.javalin.Javalin;
 import io.javalin.http.BadRequestResponse;
@@ -25,6 +29,7 @@ public class HuntListController implements Controller {
 
   private static final String API_HUNTS = "api/hunts";
   private static final String API_HUNTS_BY_ID = "api/hunt/{id}";
+  private static final String API_ADD_HUNT = "api/hunt/new/{ownerID}";
 
   static final String NAME_KEY = "name";
   static final String DESCRIPTION_KEY = "description";
@@ -75,6 +80,7 @@ public class HuntListController implements Controller {
   public void addRoutes(Javalin server) {
     server.get(API_HUNTS_BY_ID, this::getHunt);
     server.get(API_HUNTS, this::getHunts);
+    server.post(API_ADD_HUNT, this::addNewHunt);
   }
 
   private Bson constructFilter(Context ctx) {
@@ -92,5 +98,55 @@ public class HuntListController implements Controller {
     Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
 
     return combinedFilter;
+  }
+
+  public void getHuntsByOwnerId(Context ctx) {
+    String sortBy = Objects.requireNonNullElse(ctx.queryParam("sortBy"), "_id");
+    if (sortBy.equals("ownerId")) {
+      sortBy = "_id";
+    }
+
+    String sortOrder = Objects.requireNonNullElse(ctx.queryParam("sortOrder"), "asc");
+    Bson sortingOrder = sortOrder.equals("desc") ? Sorts.descending(sortBy) : Sorts.ascending(sortBy);
+
+    ArrayList<HuntByOwnerId> matchingHunts = huntCollection
+      .aggregate(
+        List.of(
+          new Document("$project", new Document("_id", 1).append("hunts", 1).append("ownerId", 1)),
+                new Document("$group", new Document("_id", "$ownerId")
+                    .append("count", new Document("$sum", 1))
+                    .append("hunts", new Document("$push", new Document("_id", "$_id").append("hunt", "$hunt")))),
+
+                new Document("$sort", sortingOrder)),
+            HuntByOwnerId.class)
+        .into(new ArrayList<>());
+
+    ctx.json(matchingHunts);
+    ctx.status(HttpStatus.OK);
+  }
+
+  public void addNewHunt(Context ctx) {
+    Hunt newHunt = ctx.bodyValidator(Hunt.class)
+        .check(hunt -> hunt.name != null, "Hunt must have a name")
+        .check(hunt -> hunt.ownerId != null, "Hunt must have an ownerId")
+        .check(hunt -> hunt.description instanceof String && hunt.description != "", "Hunt must have a description")
+        .get();
+
+    huntCollection.insertOne(newHunt);
+
+    ctx.json(Map.of("id", newHunt._id));
+    ctx.status(HttpStatus.CREATED);
+  }
+
+  public void deleteHunt(Context ctx) {
+    String id = ctx.pathParam("id");
+    DeleteResult deleteResult = huntCollection.deleteOne(eq("_id", new ObjectId(id)));
+
+    if (deleteResult.getDeletedCount() != 1) {
+      ctx.status(HttpStatus.NOT_FOUND);
+      throw new NotFoundResponse(
+        "Unable to delete ID " + id + "; illegal ID or ID is not within system");
+    }
+    ctx.status(HttpStatus.OK);
   }
 }
