@@ -17,14 +17,6 @@ export class TaskService{
 constructor(private httpClient: HttpClient) {
 }
 
-// getTasks(huntId?: string): Observable<Task[]>{
-//   let httpParams: HttpParams = new HttpParams();
-//   if (huntId) {
-//   httpParams = httpParams.set(this.huntIdKey, huntId);
-//   }
-//   return this.httpClient.get<Task[]>(this.taskUrl, {params: httpParams,
-//   });
-// }
 
 getTasks(huntId: string): Observable<Task[]>{
   return this.httpClient.get<Task[]>(this.taskUrl + 'tasks/' + huntId)
