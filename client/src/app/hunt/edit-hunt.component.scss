@@ -12,7 +12,7 @@
 
 
 .task-nav-list {
-  width: 100%;
+
   // position: absolute;
   // background-color: rgba(0, 0, 0, 0.5);
   color: white;
@@ -20,13 +20,18 @@
   // transform: translateY(-50%); /* Center vertically */
   // left: 50%; /* Center horizontally */
   // transform: translateX(-50%); /* Center horizontally */
-  margin-top: 20%; /* Adjust this value as per your requirement */
+  margin-top: 22%; /* Adjust this value as per your requirement */
   margin-bottom: 20px;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  height: 10px;
 }
 
 .task-list-item {
-  // margin-bottom: 10px;
+  margin-bottom: 10px;
   flex: 1 1 280px;
+  height: 10px;
 }
 
 .task-list-subtitle{
@@ -40,7 +45,7 @@
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   position: absolute; /* or 'fixed' depending on your needs */
-  top: 15%; /* Adjust this value as per your requirement */
+  top: 16%; /* Adjust this value as per your requirement */
   transform: translateY(-50%); /* Center vertically */
   left: 50%; /* Center horizontally */
   transform: translateX(-50%); /* Center horizontally */
@@ -90,4 +95,19 @@
   padding: 15px 30px; /* Adjusted padding for 2 times bigger */
   font-size: 1.5em; /* Adjusted font size for 2 times bigger */
   cursor: pointer;
+}
+
+.task-element-component{
+  // position: relative;
+  // width: 100%;
+  // margin-top: .5%;
+  // margin-left: 25%;
+  color: white;
+  background-color: transparent;
+  border: none;
+  height: 30px;
+}
+
+.task-description{
+  color: white;
 }

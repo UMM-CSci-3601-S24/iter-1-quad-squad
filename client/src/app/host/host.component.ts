@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-host',
   providers: [HttpClient],
   standalone: true,
-  imports: [MatCardModule, CommonModule, HttpClientModule],
+  imports: [MatCardModule, CommonModule, HttpClientModule, RouterLink],
   templateUrl: './host.component.html',
   styleUrl: './host.component.scss'
 })

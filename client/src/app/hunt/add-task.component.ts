@@ -30,13 +30,12 @@ export class AddTaskComponent implements OnInit, OnDestroy {
 
   public usedHuntId: string = 'bla'
   public positionNumber: number = 0
-  public addTaskForm: FormGroup;
+
 
   private ngUnsubscribe = new Subject<void>();
   errMsg = '';
 
-addTaskFormFunction(): void{
-  this.addTaskForm = new FormGroup({
+  addTaskForm = new FormGroup({
 
     description: new FormControl('', Validators.compose([
       Validators.required,
@@ -44,10 +43,15 @@ addTaskFormFunction(): void{
       Validators.maxLength(200)
     ])),
 
-    huntId: new FormControl(this.usedHuntId),
+    huntId: new FormControl('placeholderID'),
 
     position: new FormControl(this.positionNumber, Validators.max(100))
   });
+
+
+addTaskFormFunction(): void{
+this.addTaskForm.controls['huntId'].setValue(this.usedHuntId);
+this.addTaskForm.controls['position'].setValue(this.positionNumber);
 }
   readonly addTaskValidationMessages = {
     description: [
@@ -95,7 +99,9 @@ addTaskFormFunction(): void{
   }
 
   getTaskAttributesFromServer(): void {
+    console.log("In getTaskAttributesFromServer");
     this.usedHuntId = this.route.snapshot.params['huntId']
+    console.log(this.usedHuntId);
     this.taskService.getTasks(this.usedHuntId)
     .pipe(
       takeUntil(this.ngUnsubscribe)

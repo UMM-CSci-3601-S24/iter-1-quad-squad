@@ -29,11 +29,12 @@
         </tbody>
       </table>
     </div>
-    <button class="create-button" (click)="toggleCreateForm()">Create a Hunt</button>
+    <!-- <button class="create-button" (click)="toggleCreateForm()">Create a Hunt</button> -->
     <div *ngIf="showCreateForm" class="create-form">
       <!-- Form for creating a new hunt -->
       <!-- Add input fields for time created, name of hunt, task list -->
       <!-- Add buttons for submitting and canceling -->
     </div>
+    <button class="create-button" [routerLink]="'/tasks/65de46d19a719626538626bc'">Create Hunt</button>
   </div>
 </div>
