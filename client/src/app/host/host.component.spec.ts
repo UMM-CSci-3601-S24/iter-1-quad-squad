@@ -5,21 +5,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Hunt } from'../hunt/hunt';
+import { HuntService } from '../hunt/hunt.service';
 
 
+// @Injectable({
+//   providedIn: 'root'
+// })
+// export class HuntService {
+//   private apiUrl = '/api/hosts'; // Adjust the API URL to match your backend setup
 
-@Injectable({
-  providedIn: 'root'
-})
-export class HuntService {
-  private apiUrl = '/api/hosts'; // Adjust the API URL to match your backend setup
+//   constructor(private http: HttpClient) { }
 
-  constructor(private http: HttpClient) { }
-
-  getHunts(): Observable<Hunt[]> {
-    return this.http.get<Hunt[]>(this.apiUrl);
-  }
-}
+//   getHunts(): Observable<Hunt[]> {
+//     return this.http.get<Hunt[]>(this.apiUrl);
+//   }
+// }
 
 describe('HostComponent', () => {
   let component: HostComponent;

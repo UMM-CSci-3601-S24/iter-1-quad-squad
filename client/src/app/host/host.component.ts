@@ -30,6 +30,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 })
 
 
+
 export class HostComponent implements OnInit, OnDestroy {
 
   public serverFilteredHunts: Hunt[];
