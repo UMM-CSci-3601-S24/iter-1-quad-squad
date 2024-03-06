@@ -11,7 +11,7 @@ import { HuntService } from 'src/app/hunt/hunt.service';
 export class MockHuntService extends HuntService {
   static testHunts: Hunt[] = [
     {
-      _id: 'Id_num_1',
+      _id: 'first_hunt_id',
       name: 'para hunt',
       description: 'description for 1 lol',
       ownerId: 'blank'
@@ -46,7 +46,16 @@ export class MockHuntService extends HuntService {
     } else if (id === MockHuntService.testHunts[2]._id) {
       return of(MockHuntService.testHunts[2]);
     } else {
-      return of(null);
+      return of(MockHuntService.testHunts[0]);
     }
-  }
+//     const foundHunt = MockHuntService.testHunts.find(hunt => hunt._id === id);
+//   if (foundHunt) {
+//     return of(foundHunt);
+//   } else {
+//     // Handle the case where the hunt with the provided id is not found
+//     // For example, return null or throw an error
+//     return of(null);
+//   }
+// }
+}
 }

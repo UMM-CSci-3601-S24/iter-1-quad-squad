@@ -41,15 +41,15 @@ export class MockTaskService extends TaskService {
     );
   }
 
-  getTaskById(id: string): Observable<Task> {
-    if (id === MockTaskService.testTasks[0]._id) {
-      return of(MockTaskService.testTasks[0]);
-    } else if (id === MockTaskService.testTasks[1]._id) {
-      return of(MockTaskService.testTasks[1]);
-    } else if (id === MockTaskService.testTasks[2]._id) {
-      return of(MockTaskService.testTasks[2]);
-    } else {
-      return of(null);
-    }
-  }
+  // getTaskById(id: string): Observable<Task> {
+  //   if (id === MockTaskService.testTasks[0]._id) {
+  //     return of(MockTaskService.testTasks[0]);
+  //   } else if (id === MockTaskService.testTasks[1]._id) {
+  //     return of(MockTaskService.testTasks[1]);
+  //   } else if (id === MockTaskService.testTasks[2]._id) {
+  //     return of(MockTaskService.testTasks[2]);
+  //   } else {
+  //     return of(null);
+  //   }
+  // }
 }
