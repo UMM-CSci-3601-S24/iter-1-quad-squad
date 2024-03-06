@@ -36,8 +36,7 @@ describe('HuntService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule]
     });
-    // Construct an instance of the service with the mock
-    // HTTP client.
+
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
     huntService = new HuntService(httpClient);
