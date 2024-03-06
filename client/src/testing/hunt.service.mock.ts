@@ -39,6 +39,9 @@ export class MockHuntService extends HuntService {
   }
 
   getHuntById(id: string): Observable<Hunt> {
+    // console.log('In getHuntById ' + id);
+    // console.log(MockHuntService.testHunts[0]);
+    // console.log(MockHuntService.testHunts[0]._id);
     if (id === MockHuntService.testHunts[0]._id) {
       return of(MockHuntService.testHunts[0]);
     } else if (id === MockHuntService.testHunts[1]._id) {
