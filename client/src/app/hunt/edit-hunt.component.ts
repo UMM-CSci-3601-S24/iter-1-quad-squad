@@ -107,10 +107,6 @@ export class EditHuntComponent implements OnInit, OnDestroy {
     });
   }
 
-  navigateToCreateTask(): void {
-    this.router.navigate(['../','task','new', this.taskHuntId], {relativeTo: this.route});
-  }
-
   ngOnInit(): void {
     this.getHuntFromServer();
   }
