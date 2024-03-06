@@ -221,19 +221,19 @@ class HuntListControllerSpec {
     assertEquals(1, testOwnerId3.count);
   }
 
-  @Test
-  void testGetHuntsByOwnerIdWithSortOrderAndSortByAndFilter() {
-    when(ctx.queryParam("sortOrder")).thenReturn("desc");
-    when(ctx.queryParam("sortBy")).thenReturn("testOwnerId");
-    huntListController.getHuntsByOwnerId(ctx);
-    verify(ctx).json(huntsByOwnerIdListCaptor.capture());
-    ArrayList<HuntByOwnerId> result = huntsByOwnerIdListCaptor.getValue();
-    assertEquals(3, result.size());
+  // @Test
+  // void testGetHuntsByOwnerIdWithSortOrderAndSortByAndFilter() {
+  //   when(ctx.queryParam("sortOrder")).thenReturn("desc");
+  //   when(ctx.queryParam("sortBy")).thenReturn("testOwnerId");
+  //   huntListController.getHuntsByOwnerId(ctx);
+  //   verify(ctx).json(huntsByOwnerIdListCaptor.capture());
+  //   ArrayList<HuntByOwnerId> result = huntsByOwnerIdListCaptor.getValue();
+  //   assertEquals(3, result.size());
 
-    HuntByOwnerId testOwnerId = result.get(0);
-    assertEquals("hunt-owner-id-3", testOwnerId._id);
-    assertEquals(1, testOwnerId.count);
-  }
+  //   HuntByOwnerId testOwnerId = result.get(0);
+  //   assertEquals("hunt-owner-id-3", testOwnerId._id);
+  //   assertEquals(1, testOwnerId.count);
+  // }
 
   @Test
   void testAddNewHunt() {

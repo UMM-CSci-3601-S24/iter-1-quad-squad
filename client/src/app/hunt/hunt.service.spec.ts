@@ -8,7 +8,7 @@ import { HuntService } from './hunt.service';
 describe('HuntService', () => {
   const testHunts: Hunt[] = [
     {
-      _id: 'Id_num_1',
+      _id: 'first_hunt_id',
       name: 'para hunt',
       description: 'description for 1 lol',
       ownerId: 'blank'
@@ -36,8 +36,7 @@ describe('HuntService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule]
     });
-    // Construct an instance of the service with the mock
-    // HTTP client.
+
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
     huntService = new HuntService(httpClient);
