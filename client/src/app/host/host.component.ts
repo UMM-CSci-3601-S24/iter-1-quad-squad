@@ -17,8 +17,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 
 
@@ -26,9 +24,9 @@ import { RouterTestingModule } from '@angular/router/testing';
   selector: 'app-host',
   templateUrl: 'host.component.html',
   styleUrls: ['host.component.scss'],
-  providers: [HttpClient],
+  providers: [],
   standalone: true,
-  imports: [RouterTestingModule,HttpClientModule, MatCardModule, MatFormFieldModule, MatInputModule, FormsModule, MatSelectModule, MatOptionModule, MatRadioModule, MatListModule, RouterLink, MatButtonModule, MatTooltipModule, MatIconModule, CommonModule]
+  imports: [RouterTestingModule, MatCardModule, MatFormFieldModule, MatInputModule, FormsModule, MatSelectModule, MatOptionModule, MatRadioModule, MatListModule, RouterLink, MatButtonModule, MatTooltipModule, MatIconModule, CommonModule]
 })
 
 

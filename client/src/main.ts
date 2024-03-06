@@ -23,6 +23,8 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app/app-routing.module';
 import { AppComponent } from './app/app.component';
 import { environment } from './environments/environment';
+import {HttpClient} from '@angular/common/http';
+
 
 const MATERIAL_MODULES = [
   MatButtonModule,
@@ -49,7 +51,7 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
     providers: [
-        importProvidersFrom(BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, MATERIAL_MODULES, LayoutModule),
+        importProvidersFrom(HttpClient, BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, MATERIAL_MODULES, LayoutModule),
         provideAnimations(),
         provideHttpClient(withInterceptorsFromDi())
     ]

@@ -14,7 +14,7 @@ import { RouterTestingModule } from '@angular/router/testing';
   templateUrl: './create-hunt.component.html',
   styleUrls: ['./create-hunt.component.scss'],
   imports: [RouterTestingModule, CommonModule, FormsModule, MatCard, RouterModule, HttpClientModule],
-  providers: [HttpClient, Router],
+  providers: [Router],
   standalone: true
 })
 
@@ -39,7 +39,6 @@ export class CreateHuntComponent {
      description: '',
      ownerId: '',
      _id: '',
-     id: undefined
    };
 
    onDescriptionInput(event: Event): void {
@@ -63,7 +62,7 @@ export class CreateHuntComponent {
       description: '',
       ownerId: '',
       _id: '',
-      id: undefined
+
     };
   }
 

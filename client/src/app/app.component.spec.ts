@@ -6,6 +6,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 describe('AppComponent', () => {
@@ -18,7 +19,7 @@ describe('AppComponent', () => {
         MatSidenavModule,
         MatCardModule,
         MatListModule,
-        AppComponent
+        AppComponent,
     ],
 }).compileComponents();
   }));
