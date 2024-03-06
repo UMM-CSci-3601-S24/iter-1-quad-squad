@@ -3,10 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { HostComponent } from './host/host.component';
-import { AddUserComponent } from './users/add-user.component';
-import { UserListComponent } from './users/user-list.component';
-import { UserProfileComponent } from './users/user-profile.component';
-import { CompanyListComponent } from './company-list/company-list.component';
+
 import { EditHuntComponent } from './hunt/edit-hunt.component';
 import { AddTaskComponent } from './hunt/add-task.component';
 
@@ -21,10 +18,7 @@ const routes: Routes = [
   {path: 'host', component: HostComponent, title: 'Host'},
   {path: 'tasks/:huntId', component: EditHuntComponent}, //the id here is the hunt id from which all of the tasks displayed belong to
   {path: 'task/new/:huntId', component: AddTaskComponent, title: 'Add Task'},
-  {path: 'users', component: UserListComponent, title: 'Users'},
-  {path: 'users/new', component: AddUserComponent, title: 'Add User'},
-  {path: 'users/:id', component: UserProfileComponent, title: 'User Profile'},
-  {path: 'companies', component: CompanyListComponent, title: 'Companies'}
+
 ];
 
 @NgModule({
