@@ -19,10 +19,10 @@ import { MockHuntService } from 'src/testing/hunt.service.mock';
 import { Hunt } from '../hunt/hunt';
 import { TaskService } from '../hunt/task.service';
 import { HuntService } from '../hunt/hunt.service';
-import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
+// import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+// import { ActivatedRoute } from '@angular/router';
 import { HostComponent } from './host.component';
 
 
@@ -74,11 +74,63 @@ describe('HostComponent', () => {
    expect(hostComponent.serverFilteredHunts.length).toBe(3);
  });
 
+it('can search for all hunts with Id', () => {
+  const id1 = hostComponent.serverFilteredHunts[0]._id
+  hostComponent.seeHuntDetails(id1)
+  expect(hostComponent.huntChosen).toBe(hostComponent.serverFilteredHunts[0])
 
+  const id2 = hostComponent.serverFilteredHunts[1]._id
+  hostComponent.seeHuntDetails(id2)
+  expect(hostComponent.huntChosen).toBe(hostComponent.serverFilteredHunts[1])
 
-
-
+  const id3 = hostComponent.serverFilteredHunts[2]._id
+  hostComponent.seeHuntDetails(id3)
+  expect(hostComponent.huntChosen).toBe(hostComponent.serverFilteredHunts[2])
+})
 
 });
 
+describe('generates an error if we don\'t set up a HuntService', () => {
+  let hostComponent: HostComponent;
+  let fixture: ComponentFixture<HostComponent>
+
+  let huntServiceStub: {
+    getHunts: () => Observable<Hunt[]>;
+  };
+
+  beforeEach(() => {
+    huntServiceStub = {
+      getHunts: () => new Observable(observer => {
+        observer.error('getHunts() Observer generates an error');
+      }),
+    };
+    TestBed.configureTestingModule({
+      imports: [COMMON_IMPORTS, HostComponent],
+      providers: [{ provide: HuntService, useValue: huntServiceStub }]
+    })
+  });
+
+  beforeEach(waitForAsync(() => {
+    // Compile all the components in the test bed
+    // so that everything's ready to go.
+    TestBed.compileComponents().then(() => {
+
+      fixture = TestBed.createComponent(HostComponent);
+      hostComponent = fixture.componentInstance;
+
+      fixture.detectChanges();
+    });
+  }));
+
+  it('generates an error if we don\'t set up a UserListService', () => {
+
+    expect(hostComponent.serverFilteredHunts)
+      .withContext('service can\'t give values to the list if it\'s not there')
+      .toBeUndefined();
+
+    expect(hostComponent.errMsg)
+      .withContext('the error message will be')
+      .toContain('Problem contacting the server – Error Code:');
+  })
+})
 

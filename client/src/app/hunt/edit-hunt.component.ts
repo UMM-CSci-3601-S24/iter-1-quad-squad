@@ -81,16 +81,16 @@ export class EditHuntComponent implements OnInit, OnDestroy {
 
   getHuntFromServer(): void {
     this.route.paramMap.pipe(
-      map((paramMap: ParamMap) => paramMap.get('huntId')),
+      map((paramMap: ParamMap) => { console.log(paramMap); return paramMap.get('huntId'); }),
       switchMap((huntId: string) => this.huntService.getHuntById(huntId)),
       takeUntil(this.ngUnsubscribe)
     ).subscribe({
       next: hunt => {
-        this.taskHunt = hunt
-        this.taskHuntId = this.taskHunt._id
-        this.taskHuntName = this.taskHunt.name
-        this.taskHuntDescription = this.taskHunt.description
-        this.getTasksFromServer()
+        this.taskHunt = hunt;
+        this.taskHuntId = this.taskHunt._id;
+        this.taskHuntName = this.taskHunt.name;
+        this.taskHuntDescription = this.taskHunt.description;
+        this.getTasksFromServer();
       },
       // error: (err) => {
       //   if (err.error instanceof ErrorEvent) {
