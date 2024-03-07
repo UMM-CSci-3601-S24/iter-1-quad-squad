@@ -13,13 +13,36 @@
         </div>
       </div>
 
+
+
       <div class="input-card">
-        <div class="sign">
-          <input type="text" placeholder="Owner ID">
-          <input type="text" placeholder="Description">
-          <input type="text" placeholder="Name">
-          <button class="submit-button" (click)="goBack()">Submit</button>
+        <form [formGroup]="addHuntForm">
+        <mat-card-content>
+        <div class="flex-container">
+          <mat-form-field class="full-width">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" required>
+            @if (formControlHasError('name')) {
+              <mat-error data-test="name">
+                {{getErrorMessage('name')}}
+              </mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <mat-label>Description</mat-label>
+            <input matInput formControlName="description" required>
+            @if (formControlHasError('description')) {
+              <mat-error data-test="descriptionError">
+                {{getErrorMessage('description')}}
+              </mat-error>
+            }
+          </mat-form-field>
+
+          <button class="submit-button" (click)="submitForm()">Submit</button>
         </div>
+      </mat-card-content>
+    </form>
       </div>
     </div>
   </div>
