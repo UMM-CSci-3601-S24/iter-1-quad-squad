@@ -14,19 +14,19 @@ import { CommonModule } from '@angular/common';
 
 export class HomeComponent {
   constructor(private router: Router) { }
-  // showHunterInput: boolean = false;
+  showHunterInput: boolean = false;
 
   hostLogin() {
     this.router.navigate(['/login']);
 }
 
-  // showHunterForm() {
-  //   this.showHunterInput = !this.showHunterInput; // Set the flag to the opposite
-  // }
+  showHunterForm() {
+    this.showHunterInput = !this.showHunterInput; // Set the flag to the opposite
+  }
 
-  // submitHunterForm() {
-  //   // NEED TO SEND SOMEWHERE/VALIDATE SOMETHING. DO NOT LEAVE BLANK
-  // }
+  submitHunterForm() {
+    // NEED TO SEND SOMEWHERE/VALIDATE SOMETHING. DO NOT LEAVE BLANK
+  }
 
   // navigateToCreateTask(): void {
   //   // this.router.navigate(['../','task','new', this.taskHuntId], {relativeTo: this.route});
