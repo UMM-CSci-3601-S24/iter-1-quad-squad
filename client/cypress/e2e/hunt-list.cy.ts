@@ -18,5 +18,10 @@ describe("Hunt list", () => {
   it("Should show 2 hunts (3 table rows)", () => {
     page.getHuntTable().find("tr").should("have.length", 3);
   });
-
+/** FIXME: This test is failing no functionality on button
+  it("Should navigate to the create hunt page", () => {
+    page.clickCreateHunt();
+    cy.url().should("include", "/host/create");
+  });
+*/
 });

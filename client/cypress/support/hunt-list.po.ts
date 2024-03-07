@@ -1,7 +1,7 @@
 export class HuntListPage {
   private readonly baseUrl = '/host';
   private readonly huntTable = '.hunt-table';
-  private readonly createHuntButton = '[create-button]';
+  private readonly createHuntButton = '[data-test=createHuntButton]';
 
   navigateTo() {
     return cy.visit(this.baseUrl);
@@ -9,5 +9,9 @@ export class HuntListPage {
 
   getHuntTable() {
     return cy.get(this.huntTable);
+  }
+
+  clickCreateHunt() {
+    return cy.get(this.createHuntButton).click();
   }
 }
