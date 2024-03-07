@@ -28,8 +28,8 @@ export class HomeComponent {
     // NEED TO SEND SOMEWHERE/VALIDATE SOMETHING. DO NOT LEAVE BLANK
   }
 
-  // navigateToCreateTask(): void {
-  //   // this.router.navigate(['../','task','new', this.taskHuntId], {relativeTo: this.route});
-  //   this.router.navigate(['task','new', '65de46d19a719626538626bc']);
-  // }
+  navigateToCreateTask(): void {
+    // this.router.navigate(['../','task','new', this.taskHuntId], {relativeTo: this.route});
+    this.router.navigate(['task','new', '65de46d19a719626538626bc']);
+  }
 }

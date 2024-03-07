@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-task',
@@ -26,7 +27,8 @@ export class AddTaskComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private taskService: TaskService,
     private snackBar: MatSnackBar,
-    private router: Router){}
+    private router: Router,
+    private location: Location){}
 
   public usedHuntId: string = 'bla'
   public positionNumber: number = 0
@@ -97,7 +99,9 @@ this.addTaskForm.controls['position'].setValue(this.positionNumber);
       },
     });
   }
-
+  goBack(): void {
+    this.location.back();
+  }
   getTaskAttributesFromServer(): void {
     console.log("In getTaskAttributesFromServer");
     this.usedHuntId = this.route.snapshot.params['huntId']

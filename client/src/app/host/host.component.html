@@ -23,7 +23,7 @@
               <td class="button-column">
                 <button class="action-button start-button">Start Hunt</button>
                 <button class="action-button delete-button">Delete Hunt</button>
-                <button [routerLink]="['/tasks', hunt._id]" class="action-button details-button">See Details</button>
+                <button class="action-button details-button" (click)="navigateToCreateTask(hunt._id)">See Details</button>
 
 
               </td>
@@ -33,7 +33,7 @@
           </tbody>
         </table>
       </div>
-      <button class="create-button" [routerLink]="['/hunt/new']">Create Hunt</button>
+      <button class="create-button" (click)="navigateToCreateHunt()">Create Hunt</button>
 
 
   </div>
