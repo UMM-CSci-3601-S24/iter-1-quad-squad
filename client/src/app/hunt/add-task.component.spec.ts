@@ -92,7 +92,7 @@ describe('AddTaskComponent submitform function', () => {
         MatInputModule,
         BrowserAnimationsModule,
         RouterTestingModule.withRoutes([
-            { path: 'tasks/1', component: EditHuntComponent }
+            { path: 'tasks/testHuntId', component: EditHuntComponent }
         ]),
         HttpClientTestingModule,
         AddTaskComponent, EditHuntComponent
@@ -121,18 +121,23 @@ describe('AddTaskComponent submitform function', () => {
     addTaskComponent.addTaskForm.controls.position.setValue(0);
   })
 
-  // it('should call addTask() and handle success response', fakeAsync(() => {
-  //   fixture.ngZone.run(() => {
-  //     const addTaskSpy = spyOn(taskService, 'addTask').and.returnValue(of('1'));
-  //     addTaskComponent.usedHuntId = 'test huntId';
-  //     addTaskComponent.submitForm();
+  it('should call addTask() and handle success response', fakeAsync(() => {
+    fixture.ngZone.run(() => {
+      addTaskComponent.usedHuntId = 'testHuntId';
+      tick();
 
-  //     expect(addTaskSpy).toHaveBeenCalledWith(addTaskComponent.addTaskForm.value, 'test huntId');
-  //     tick();
-  //     expect(location.path()).toBe('/tasks/1')
+      const addTaskSpy = spyOn(taskService, 'addTask')
+      .withArgs(addTaskComponent.addTaskForm.value, addTaskComponent.usedHuntId)
+      .and.returnValue(of('1'));
+      addTaskComponent.submitForm();
 
-  //     flush();
-  //   });
-  // }));
+
+      expect(addTaskSpy).toHaveBeenCalledWith(addTaskComponent.addTaskForm.value, 'testHuntId');
+      tick();
+      expect(location.path()).toBe('/tasks/testHuntId')
+
+      flush();
+    });
+  }));
 
 });
