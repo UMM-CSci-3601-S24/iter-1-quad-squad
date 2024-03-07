@@ -1,6 +1,6 @@
 package umm3601.hunt;
 
-import static com.mongodb.client.model.Filters.and;
+// import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 
 import java.util.ArrayList;
@@ -63,10 +63,10 @@ public class HuntListController implements Controller {
   }
 
   public void getHunts(Context ctx) {
-    Bson combinedFilter = constructFilter(ctx);
+    // Bson combinedFilter = constructFilter(ctx);
 
     ArrayList<Hunt> matchingHunts = huntCollection
-      .find(combinedFilter)
+      .find() // .find combinedFilter
       .into(new ArrayList<>());
 
     ctx.json(matchingHunts);
@@ -83,22 +83,22 @@ public class HuntListController implements Controller {
     server.post(API_ADD_HUNT, this::addNewHunt);
   }
 
-  private Bson constructFilter(Context ctx) {
-    List<Bson> filters = new ArrayList<>();
-    if (ctx.queryParamMap().containsKey(NAME_KEY)) {
-      filters.add(eq(NAME_KEY, ctx.queryParam(NAME_KEY)));
-    }
-    if (ctx.queryParamMap().containsKey(DESCRIPTION_KEY)) {
-      filters.add(eq(DESCRIPTION_KEY, ctx.queryParam(DESCRIPTION_KEY)));
-    }
-    if (ctx.queryParamMap().containsKey(OWNERID_KEY)) {
-      filters.add(eq(OWNERID_KEY, ctx.queryParam(OWNERID_KEY)));
-    }
+  // private Bson constructFilter(Context ctx) {
+  //   List<Bson> filters = new ArrayList<>();
+  //   if (ctx.queryParamMap().containsKey(NAME_KEY)) {
+  //     filters.add(eq(NAME_KEY, ctx.queryParam(NAME_KEY)));
+  //   }
+  //   if (ctx.queryParamMap().containsKey(DESCRIPTION_KEY)) {
+  //     filters.add(eq(DESCRIPTION_KEY, ctx.queryParam(DESCRIPTION_KEY)));
+  //   }
+  //   if (ctx.queryParamMap().containsKey(OWNERID_KEY)) {
+  //     filters.add(eq(OWNERID_KEY, ctx.queryParam(OWNERID_KEY)));
+  //   }
 
-    Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
+  //   Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
 
-    return combinedFilter;
-  }
+  //   return combinedFilter;
+  // }
 
   public void getHuntsByOwnerId(Context ctx) {
     String sortBy = Objects.requireNonNullElse(ctx.queryParam("sortBy"), "_id");

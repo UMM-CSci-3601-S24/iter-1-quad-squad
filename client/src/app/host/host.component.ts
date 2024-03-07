@@ -6,9 +6,8 @@ import { HuntService } from '../hunt/hunt.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
@@ -17,7 +16,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
 
 
 
@@ -28,7 +26,7 @@ import { RouterTestingModule } from '@angular/router/testing';
  styleUrls: ['host.component.scss'],
  providers: [],
  standalone: true,
- imports: [RouterTestingModule, MatCardModule, MatFormFieldModule, MatInputModule, FormsModule, MatSelectModule, MatOptionModule, MatRadioModule, MatListModule, RouterLink, MatButtonModule, MatTooltipModule, MatIconModule, CommonModule]
+ imports: [MatCardModule, MatFormFieldModule, MatInputModule, FormsModule, MatSelectModule, MatOptionModule, MatRadioModule, MatListModule, MatButtonModule, MatTooltipModule, MatIconModule, CommonModule]
 })
 
 
@@ -87,7 +85,7 @@ export class HostComponent implements OnInit, OnDestroy {
      });
  }
  navigateToCreateHunt(): void {
-   this.router.navigate(['/hunt/new/']);
+  this.router.navigate(['/hunt', 'new']);
  }
 
 
@@ -111,7 +109,10 @@ export class HostComponent implements OnInit, OnDestroy {
    this.ngUnsubscribe.complete();
  }
 
-
+ navigateToCreateTask(huntId: string): void {
+  // this.router.navigate(['../','task','new', this.taskHuntId], {relativeTo: this.route});
+  this.router.navigate(['task', huntId]);
+}
 }
 
 
