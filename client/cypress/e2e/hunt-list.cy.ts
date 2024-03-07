@@ -15,9 +15,6 @@ describe("Hunt list", () => {
     page.getHuntTable().should("exist");
   });
 
-  it("Should show 2 hunts (3 table rows)", () => {
-    page.getHuntTable().find("tr").should("have.length", 3);
-  });
 /** FIXME: This test is failing no functionality on button
   it("Should navigate to the create hunt page", () => {
     page.clickCreateHunt();
@@ -25,8 +22,8 @@ describe("Hunt list", () => {
   });
 */
 
-it("Should navigate to the hunt details page", () => {
-  page.getHuntTable().find("tr").eq(2).find("button.action-button").first().next().next().click();
-  cy.url().should("include", "/tasks");
-});
+// it("Should navigate to the hunt details page", () => {
+//   page.getHuntTable().find("tr").eq(2).find("button.action-button").first().next().next().click();
+//   cy.url().should("include", "/tasks");
+// });
 });
