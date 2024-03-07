@@ -69,4 +69,10 @@ describe('home navigation', () => {
   });
   }));
 
+  it('showHunterInput changes flag', () =>{
+  expect(component.showHunterInput).toBeFalse;
+  component.showHunterForm();
+  expect(component.showHunterInput).toBeTrue;
+})
+
 });
