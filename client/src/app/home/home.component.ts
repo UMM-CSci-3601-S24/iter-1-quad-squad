@@ -25,7 +25,7 @@ export class HomeComponent {
   }
 
   submitHunterForm() {
-    // NEED TO SEND SOMEWHERE/VALIDATE SOMETHING. DO NOT LEAVE BLANK
+    // NEED TO SEND SOMEWHERE/VALIDATE SOMETHING. DO NOT LEAVE BLANK this affects
   }
 
   // navigateToCreateTask(): void {
