@@ -10,8 +10,7 @@
             <div class="flex-col">
               <mat-form-field>
                 <mat-label>Description</mat-label>
-                <input matInput formControlName="description"
-                  required>
+                <input matInput formControlName="description" required>
                 @if (formControlHasError('description')) {
                   <mat-error data-test="descriptionError">
                     {{getErrorMessage('description')}}
@@ -19,20 +18,13 @@
                 }
               </mat-form-field>
             </div>
-
           </mat-card-content>
           <mat-card-actions align="end">
-            <button
-              mat-button
-              type="button"
-              [style.color]="'white'"
-              color="white"
-              [disabled]="!addTaskForm.valid"
-              type="submit"
-              data-test="confirmAddTaskButton"
-              >
+            <button mat-button (click)="goBack()" color="primary">Cancel</button>
+            <button mat-button type="submit" [style.color]="'white'" color="white" [disabled]="!addTaskForm.valid" data-test="confirmAddTaskButton">
               ADD Task
             </button>
+
           </mat-card-actions>
         </mat-card>
       </form>

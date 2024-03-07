@@ -6,6 +6,7 @@ import { HostComponent } from './host/host.component';
 
 import { EditHuntComponent } from './hunt/edit-hunt.component';
 import { AddTaskComponent } from './hunt/add-task.component';
+import { CreateHuntComponent } from './create-hunt/create-hunt.component';
 
 // Note that the 'users/new' route needs to come before 'users/:id'.
 // If 'users/:id' came first, it would accidentally catch requests to
@@ -16,8 +17,10 @@ const routes: Routes = [
   // {path: 'hunts', component: seeHuntComponent}, to be implemented, where a user can sees all their hunts
   // {path: 'hunt/:id', component: editHuntComponent}, to be implemented, page that you can see all tasks in a hunt and edit them
   {path: 'host', component: HostComponent, title: 'Host'},
-  {path: 'tasks/:huntId', component: EditHuntComponent}, //the id here is the hunt id from which all of the tasks displayed belong to
+  {path: 'task/:huntId', component: EditHuntComponent}, //the id here is the hunt id from which all of the tasks displayed belong to
   {path: 'task/new/:huntId', component: AddTaskComponent, title: 'Add Task'},
+  {path: 'hunt/new', component: CreateHuntComponent, title: 'Create a Hunt'}
+
 
 ];
 
