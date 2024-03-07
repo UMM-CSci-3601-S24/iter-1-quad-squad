@@ -1,13 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Location } from '@angular/common';
 import { CreateHuntComponent } from './create-hunt.component';
-import { SpyLocation } from '@angular/common/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('CreateHuntComponent', () => {
   let component: CreateHuntComponent;
   let fixture: ComponentFixture<CreateHuntComponent>;
-  let location: SpyLocation;
 
   const locationStub = {
     back: jasmine.createSpy('back')
