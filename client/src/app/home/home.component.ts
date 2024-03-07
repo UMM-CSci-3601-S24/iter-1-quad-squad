@@ -24,12 +24,12 @@ export class HomeComponent {
     this.showHunterInput = !this.showHunterInput; // Set the flag to the opposite
   }
 
-  submitHunterForm() {
-    // NEED TO SEND SOMEWHERE/VALIDATE SOMETHING. DO NOT LEAVE BLANK
-  }
+  // submitHunterForm() {
+  //   // NEED TO SEND SOMEWHERE/VALIDATE SOMETHING. DO NOT LEAVE BLANK
+  // }
 
-  navigateToCreateTask(): void {
-    // this.router.navigate(['../','task','new', this.taskHuntId], {relativeTo: this.route});
-    this.router.navigate(['task','new', '65de46d19a719626538626bc']);
-  }
+  // navigateToCreateTask(): void {
+  //   // this.router.navigate(['../','task','new', this.taskHuntId], {relativeTo: this.route});
+  //   this.router.navigate(['task','new', '65de46d19a719626538626bc']);
+  // }
 }

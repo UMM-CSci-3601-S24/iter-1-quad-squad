@@ -1,17 +1,28 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { Location } from '@angular/common';
 import { CreateHuntComponent } from './create-hunt.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('CreateHuntComponent', () => {
   let component: CreateHuntComponent;
   let fixture: ComponentFixture<CreateHuntComponent>;
 
+  const locationStub = {
+    back: jasmine.createSpy('back')
+}
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CreateHuntComponent]
+      imports: [CreateHuntComponent, RouterTestingModule],
+      providers: [
+        { provide: Location, useValue: locationStub }
+      ]
     })
     .compileComponents();
-    
+  });
+
+
+  beforeEach(() => {
     fixture = TestBed.createComponent(CreateHuntComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -19,5 +30,11 @@ describe('CreateHuntComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should go back to previous page on header button click', () => {
+    const location = fixture.debugElement.injector.get(Location);
+    component.goBack();
+    expect(location.back).toHaveBeenCalled();
   });
 });

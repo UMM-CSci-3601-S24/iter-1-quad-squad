@@ -15,6 +15,9 @@ describe("Hunt list", () => {
     page.getHuntTable().should("exist");
   });
 
+  it("Should show 2 hunts (3 table rows)", () => {
+    page.getHuntTable().find("tr").should("have.length", 11);
+  });
 /** FIXME: This test is failing no functionality on button
   it("Should navigate to the create hunt page", () => {
     page.clickCreateHunt();

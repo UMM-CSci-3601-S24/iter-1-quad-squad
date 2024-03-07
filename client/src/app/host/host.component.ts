@@ -71,11 +71,8 @@ export class HostComponent implements OnInit, OnDestroy {
          this.serverFilteredHunts = returnedHunts;
        },
        error: (err) => {
-         if (err.error instanceof ErrorEvent) {
-           this.errMsg = `Problem in the client – Error: ${err.error.message}`;
-         } else {
            this.errMsg = `Problem contacting the server – Error Code: ${err.status}\nMessage: ${err.message}`;
-         }
+
          this.snackBar.open(
            this.errMsg,
            'OK',
