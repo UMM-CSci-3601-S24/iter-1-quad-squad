@@ -27,7 +27,8 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/app/Forestbg.jpg"
             ],
             "styles": [
               "src/styles.scss"
@@ -101,7 +102,9 @@
             "codeCoverage": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets/images/Forestbg.jpg"
+
             ],
             "styles": [
               "src/styles.scss"

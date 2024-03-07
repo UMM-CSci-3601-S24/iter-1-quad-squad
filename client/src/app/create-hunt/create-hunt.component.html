@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <div class="background">
+    <div class="flex-container">
+      <div class="home-card">
+        <div class="sign">
+          <h1>Create a Hunt</h1>
+        </div>
+      </div>
+
+
+
+      <div class="input-card">
+        <form [formGroup]="addHuntForm">
+        <mat-card-content>
+        <div class="flex-container">
+          <mat-form-field class="full-width">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" required>
+            @if (formControlHasError('name')) {
+              <mat-error data-test="name">
+                {{getErrorMessage('name')}}
+              </mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <mat-label>Description</mat-label>
+            <input matInput formControlName="description" required>
+            @if (formControlHasError('description')) {
+              <mat-error data-test="descriptionError">
+                {{getErrorMessage('description')}}
+              </mat-error>
+            }
+          </mat-form-field>
+
+          <button class="submit-button" (click)="submitForm()">Submit</button>
+        </div>
+      </mat-card-content>
+    </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<div class="background">
+  <div>
+    <mat-card-header>
+      <mat-card-title class="task-list-title">{{taskHuntName}} Tasks</mat-card-title>
+      <mat-card-subtitle class="task-list-subtitle">{{taskHuntDescription}}</mat-card-subtitle>
+    </mat-card-header>
+  </div>
+  <div class="flex-row">
+    @if (serverFilteredTasks) {
+      <div class="flex-1" >
+        <mat-nav-list class="task-nav-list">
+          @for (task of serverFilteredTasks; track task._id) {
+            <!-- <mat-list-item>tester {{task._id}}</mat-list-item> -->
+            @if (this.task) {
+              <mat-card class="task-element-component" appearance="outlined">
+                <a mat-list-item [routerLink]="['/login']" class="task-list-item">
+                    <span matListItemTitle mat-line class="task-description">{{ this.task.description }}</span>
+                </a>
+              </mat-card>
+            }
+          }
+      </mat-nav-list>
+      </div>
+    } @else {
+      <div class="flex-1" class="user-error">
+        <mat-error>
+          There was a problem loading the tasks. Possibly the server is down or perhaps there are network
+          issues.
+        </mat-error>
+        <mat-error>
+          Please wait a bit and try again or start the server.
+        </mat-error>
+      </div>
+    }
+  </div>
+  <button class="create-button" [routerLink]="'/task/new/' + this.taskHuntId" routerLinkActive="router-link-active">Add Task</button>
+</div>

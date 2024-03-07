@@ -1,0 +1,8 @@
+@if (this.task) {
+  <mat-card class="task-element-component" appearance="outlined">
+    <a mat-list-item [routerLink]="['/login']" class="task-list-item">
+        <span matListItemTitle mat-line class="task-description">{{ this.task.description }}</span>
+    </a>
+  </mat-card>
+}
+

@@ -10,16 +10,19 @@
         <mat-icon matListItemIcon>home</mat-icon>
         Home
       </a>
-
-      <a mat-list-item routerLink="/users" routerLinkActive="drawer-list-item-active" (click)="drawer.close()">
-        <mat-icon matListItemIcon>people</mat-icon>
-        Users
+      <a mat-list-item routerLink="/login" routerLinkActive="drawer-list-item-active" (click)="drawer.close()">
+        <mat-icon matListItemIcon>login</mat-icon>
+        Login
+      </a>
+      <a mat-list-item routerLink="/host" routerLinkActive="drawer-list-item-active" (click)="drawer.close()">
+        <mat-icon matListItemIcon>account_circle</mat-icon>
+        Host
+      </a>
+      <a mat-list-item routerLink="/hunt/new" routerLinkActive="drawer-list-item-active" (click)="drawer.close()">
+        <mat-icon matListItemIcon>add_circle</mat-icon>
+        Create
       </a>
 
-      <a mat-list-item routerLink="/companies" routerLinkActive="drawer-list-item-active" (click)="drawer.close()">
-        <mat-icon matListItemIcon>business</mat-icon>
-        Companies
-      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
