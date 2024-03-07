@@ -138,7 +138,7 @@ describe('generates an error if we don\'t set up a TaskListService', () => {
     });
   }));
 
-  it('generates an error if we don\'t set up a UserListService', () => {
+  it('generates an error if we don\'t set up a TaskListService', () => {
 
     expect(editHunt.serverFilteredTasks)
       .withContext('service can\'t give values to the list if it\'s not there')
@@ -147,5 +147,5 @@ describe('generates an error if we don\'t set up a TaskListService', () => {
     expect(editHunt.errMsg)
       .withContext('the error message will be')
       .toContain('Problem contacting the server – Error Code:');
-  })
+  });
 })
