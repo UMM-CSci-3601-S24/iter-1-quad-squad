@@ -85,30 +85,15 @@ describe('edit hunt', () => {
   });
 
   it('mocks the right huntId', () => {
-    console.log(activatedRoute.paramMap.subscribe({
-      next: parammap => {
-        parammap.getAll
-      }
-    }))
     const expectedHunt: Hunt = MockHuntService.testHunts[0];
     activatedRoute.setParamMap({ huntId: expectedHunt._id });
     expect(editHunt.taskHuntId).toEqual('first_hunt_id');
   })
   it('contains all the tasks', () => {
-    console.log(activatedRoute.paramMap.subscribe({
-      next: parammap => {
-        parammap.getAll
-      }
-    }))
     expect(editHunt.serverFilteredTasks.length).toBe(3);
   });
 
   it('contains a task with id Id_number_2', () => {
-    console.log(activatedRoute.paramMap.subscribe({
-      next: parammap => {
-        parammap.getAll
-      }
-    }))
     expect(editHunt.serverFilteredTasks.some((task: Task) => task._id === 'Id_number_2')).toBe(true)
   });
 

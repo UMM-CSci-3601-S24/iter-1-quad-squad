@@ -13,10 +13,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-// import { Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { MockTaskService } from 'src/testing/task.service.mock';
 import { MockHuntService } from 'src/testing/hunt.service.mock';
-// import { Hunt } from '../hunt/hunt';
+import { Hunt } from '../hunt/hunt';
 import { TaskService } from '../hunt/task.service';
 import { HuntService } from '../hunt/hunt.service';
 // import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
@@ -88,9 +88,49 @@ it('can search for all hunts with Id', () => {
   expect(hostComponent.huntChosen).toBe(hostComponent.serverFilteredHunts[2])
 })
 
-
-
-
 });
 
+describe('generates an error if we don\'t set up a HuntService', () => {
+  let hostComponent: HostComponent;
+  let fixture: ComponentFixture<HostComponent>
+
+  let huntServiceStub: {
+    getHunts: () => Observable<Hunt[]>;
+  };
+
+  beforeEach(() => {
+    huntServiceStub = {
+      getHunts: () => new Observable(observer => {
+        observer.error('getHunts() Observer generates an error');
+      }),
+    };
+    TestBed.configureTestingModule({
+      imports: [COMMON_IMPORTS, HostComponent],
+      providers: [{ provide: HuntService, useValue: huntServiceStub }]
+    })
+  });
+
+  beforeEach(waitForAsync(() => {
+    // Compile all the components in the test bed
+    // so that everything's ready to go.
+    TestBed.compileComponents().then(() => {
+
+      fixture = TestBed.createComponent(HostComponent);
+      hostComponent = fixture.componentInstance;
+
+      fixture.detectChanges();
+    });
+  }));
+
+  it('generates an error if we don\'t set up a UserListService', () => {
+
+    expect(hostComponent.serverFilteredHunts)
+      .withContext('service can\'t give values to the list if it\'s not there')
+      .toBeUndefined();
+
+    expect(hostComponent.errMsg)
+      .withContext('the error message will be')
+      .toContain('Problem contacting the server – Error Code:');
+  })
+})
 
