@@ -24,4 +24,9 @@ describe("Hunt list", () => {
     cy.url().should("include", "/host/create");
   });
 */
+
+it("Should navigate to the hunt details page", () => {
+  page.getHuntTable().find("tr").eq(2).find("button.action-button").first().next().next().click();
+  cy.url().should("include", "/tasks");
+});
 });
