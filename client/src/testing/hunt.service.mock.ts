@@ -51,6 +51,7 @@ export class MockHuntService extends HuntService {
     } else {
       return of(MockHuntService.testHunts[0]);
     }
+  }
 //     const foundHunt = MockHuntService.testHunts.find(hunt => hunt._id === id);
 //   if (foundHunt) {
 //     return of(foundHunt);
@@ -61,4 +62,4 @@ export class MockHuntService extends HuntService {
 //   }
 // }
 }
-}
+
