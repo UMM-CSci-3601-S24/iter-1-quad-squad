@@ -49,46 +49,66 @@ const COMMON_IMPORTS: unknown[] = [
 describe('edit hunt', () => {
   let editHunt: EditHuntComponent;
   let fixture: ComponentFixture<EditHuntComponent>
+  const neededHuntId: string = 'first_hunt_id';
   const activatedRoute: ActivatedRouteStub = new ActivatedRouteStub({
     // Using the constructor here lets us try that branch in `activated-route-stub.ts`
     // and then we can choose a new parameter map in the tests if we choose
-    huntid : 'first_hunt_id'
+    huntId: neededHuntId
   });
 
 
 
-  beforeEach(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [COMMON_IMPORTS, EditHuntComponent, TaskElementComponent],
-    providers: [{ provide: TaskService, useValue: new MockTaskService() },
-      {provide: HuntService, useValue: new MockHuntService()},{ provide: ActivatedRoute, useValue: activatedRoute }]
-})
-.compileComponents();
-});
+      imports: [COMMON_IMPORTS, EditHuntComponent, TaskElementComponent],
+      providers: [
+        { provide: TaskService, useValue: new MockTaskService() },
+        { provide: HuntService, useValue: new MockHuntService() },
+        { provide: ActivatedRoute, useValue: activatedRoute }
+      ]
+    })
+      .compileComponents();
+  }));
 
-beforeEach(waitForAsync(() => {
-  // Compile all the components in the test bed
-  // so that everything's ready to go.
-    TestBed.compileComponents().then(() => {
+  beforeEach(() => {
+    // Compile all the components in the test bed
+    // so that everything's ready to go.
 
       fixture = TestBed.createComponent(EditHuntComponent);
       editHunt = fixture.componentInstance;
 
-
       fixture.detectChanges();
-    });
-  }));
+  });
+
+  it('should create the component', () => {
+    expect(editHunt).toBeTruthy();
+  });
 
   it('mocks the right huntId', () => {
+    console.log(activatedRoute.paramMap.subscribe({
+      next: parammap => {
+        parammap.getAll
+      }
+    }))
     const expectedHunt: Hunt = MockHuntService.testHunts[0];
-    activatedRoute.setParamMap({ huntid: expectedHunt._id});
+    activatedRoute.setParamMap({ huntId: expectedHunt._id });
     expect(editHunt.taskHuntId).toEqual('first_hunt_id');
   })
   it('contains all the tasks', () => {
+    console.log(activatedRoute.paramMap.subscribe({
+      next: parammap => {
+        parammap.getAll
+      }
+    }))
     expect(editHunt.serverFilteredTasks.length).toBe(3);
   });
 
   it('contains a task with id Id_number_2', () => {
+    console.log(activatedRoute.paramMap.subscribe({
+      next: parammap => {
+        parammap.getAll
+      }
+    }))
     expect(editHunt.serverFilteredTasks.some((task: Task) => task._id === 'Id_number_2')).toBe(true)
   });
 
@@ -101,7 +121,7 @@ describe('generates an error if we don\'t set up a TaskListService', () => {
   const activatedRoute: ActivatedRouteStub = new ActivatedRouteStub({
     // Using the constructor here lets us try that branch in `activated-route-stub.ts`
     // and then we can choose a new parameter map in the tests if we choose
-    huntid : 'first_hunt_id'
+    huntid: 'first_hunt_id'
   });
 
   let taskServiceStub: {
@@ -115,15 +135,15 @@ describe('generates an error if we don\'t set up a TaskListService', () => {
       }),
     };
     TestBed.configureTestingModule({
-    imports: [COMMON_IMPORTS, EditHuntComponent, TaskElementComponent],
-    providers: [{ provide: TaskService, useValue: taskServiceStub },
-      {provide: HuntService, useValue: new MockHuntService()},{ provide: ActivatedRoute, useValue: activatedRoute }]
-})
-});
+      imports: [COMMON_IMPORTS, EditHuntComponent, TaskElementComponent],
+      providers: [{ provide: TaskService, useValue: taskServiceStub },
+      { provide: HuntService, useValue: new MockHuntService() }, { provide: ActivatedRoute, useValue: activatedRoute }]
+    })
+  });
 
-beforeEach(waitForAsync(() => {
-  // Compile all the components in the test bed
-  // so that everything's ready to go.
+  beforeEach(waitForAsync(() => {
+    // Compile all the components in the test bed
+    // so that everything's ready to go.
     TestBed.compileComponents().then(() => {
 
       fixture = TestBed.createComponent(EditHuntComponent);
@@ -136,11 +156,11 @@ beforeEach(waitForAsync(() => {
   it('generates an error if we don\'t set up a UserListService', () => {
 
     expect(editHunt.serverFilteredTasks)
-    .withContext('service can\'t give values to the list if it\'s not there')
-    .toBeUndefined();
+      .withContext('service can\'t give values to the list if it\'s not there')
+      .toBeUndefined();
 
     expect(editHunt.errMsg)
-    .withContext('the error message will be')
-    .toContain('Problem contacting the server – Error Code:');
+      .withContext('the error message will be')
+      .toContain('Problem contacting the server – Error Code:');
   })
 })
