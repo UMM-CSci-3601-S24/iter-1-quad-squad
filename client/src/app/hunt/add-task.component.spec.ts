@@ -59,7 +59,6 @@ describe('AddTaskComponet', () => {
     expect(addTaskForm.valid).toBeFalsy();
   });
 
-
   describe('getErrorMessage() for Task creation', () => {
     it('should return the correct error message', () => {
       const controlName: keyof typeof addTaskComponent.addTaskValidationMessages = 'description';
