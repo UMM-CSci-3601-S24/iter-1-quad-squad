@@ -24,6 +24,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 // import { ActivatedRoute } from '@angular/router';
 import { HostComponent } from './host.component';
+import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { fakeAsync, flush, tick } from '@angular/core/testing';
+import { Location } from '@angular/common';
+import { HttpClientTestingModule} from '@angular/common/http/testing';
+import { CreateHuntComponent } from '../create-hunt/create-hunt.component';
+import { EditHuntComponent } from '../hunt/edit-hunt.component';
+
+
+
 
 
 const COMMON_IMPORTS: unknown[] = [
@@ -173,3 +183,51 @@ describe('generates an error if we don\'t set up a HuntService', () => {
   })
 })
 
+describe('navigation', () => {
+  let component: HostComponent;
+  let fixture: ComponentFixture<HostComponent>;
+  let location: Location;
+
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [HostComponent, HttpClientTestingModule,
+        RouterTestingModule.withRoutes([
+          { path: 'hunt/new', component: CreateHuntComponent },
+          { path: 'task/testHuntId', component: EditHuntComponent }
+      ])]
+    })
+    .compileComponents();
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(HostComponent);
+    component = fixture.componentInstance;
+    location = TestBed.inject(Location);
+    fixture.detectChanges();
+  })
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('navigateToCreateHunt() should navigate to the right page', fakeAsync(() => {
+    fixture.ngZone.run(() => {
+    component.navigateToCreateHunt();
+    tick();
+    expect(location.path()).toBe('/hunt/new')
+    flush();
+  });
+  }));
+
+  it('navigateToCreateHunt() should navigate to the right page', fakeAsync(() => {
+    fixture.ngZone.run(() => {
+    // component.HuntId = 'testHuntId'
+    component.navigateToCreateTask('testHuntId');
+    tick();
+    expect(location.path()).toBe('/task/testHuntId')
+    flush();
+  });
+  }));
+
+});
