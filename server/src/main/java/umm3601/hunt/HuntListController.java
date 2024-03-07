@@ -29,7 +29,7 @@ public class HuntListController implements Controller {
 
   private static final String API_HUNTS = "api/hunts";
   private static final String API_HUNTS_BY_ID = "api/hunt/{id}";
-  private static final String API_ADD_HUNT = "api/hunt/new/{ownerID}";
+  private static final String API_ADD_HUNT = "api/hunt/new";
 
   static final String NAME_KEY = "name";
   static final String DESCRIPTION_KEY = "description";
