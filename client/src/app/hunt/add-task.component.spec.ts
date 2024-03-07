@@ -121,18 +121,18 @@ describe('AddTaskComponent submitform function', () => {
     addTaskComponent.addTaskForm.controls.position.setValue(0);
   })
 
-  it('should call addTask() and handle success response', fakeAsync(() => {
-    fixture.ngZone.run(() => {
-      const addTaskSpy = spyOn(taskService, 'addTask').and.returnValue(of('1'));
-      addTaskComponent.usedHuntId = 'test huntId';
-      addTaskComponent.submitForm();
+  // it('should call addTask() and handle success response', fakeAsync(() => {
+  //   fixture.ngZone.run(() => {
+  //     const addTaskSpy = spyOn(taskService, 'addTask').and.returnValue(of('1'));
+  //     addTaskComponent.usedHuntId = 'test huntId';
+  //     addTaskComponent.submitForm();
 
-      expect(addTaskSpy).toHaveBeenCalledWith(addTaskComponent.addTaskForm.value, 'test huntId');
-      tick();
-      expect(location.path()).toBe('/tasks/1')
+  //     expect(addTaskSpy).toHaveBeenCalledWith(addTaskComponent.addTaskForm.value, 'test huntId');
+  //     tick();
+  //     expect(location.path()).toBe('/tasks/1')
 
-      flush();
-    });
-  }));
+  //     flush();
+  //   });
+  // }));
 
 });

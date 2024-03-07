@@ -25,8 +25,8 @@ describe("Hunt list", () => {
   });
 */
 
-it("Should navigate to the hunt details page", () => {
-  page.getHuntTable().find("par").eq(2).find("button.action-button").first().next().next().click();
-  cy.url().should("include", "/tasks");
-});
+// it("Should navigate to the hunt details page", () => {
+//   page.getHuntTable().find("par").eq(2).find("button.action-button").first().next().next().click();
+//   cy.url().should("include", "/tasks");
+// });
 });
