@@ -24,8 +24,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 // import { ActivatedRoute } from '@angular/router';
 import { HostComponent } from './host.component';
-import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
 import { fakeAsync, flush, tick } from '@angular/core/testing';
 import { Location } from '@angular/common';
 import { HttpClientTestingModule} from '@angular/common/http/testing';
