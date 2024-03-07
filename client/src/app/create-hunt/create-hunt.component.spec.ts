@@ -74,3 +74,65 @@ describe('CreateHuntComponent', () => {
   });
 });
 
+describe('AddHuntComponent submitform function', () => {
+  let createHuntComponent: CreateHuntComponent;
+  let fixture: ComponentFixture<CreateHuntComponent>
+  let huntService: HuntService;
+  let location: Location;
+
+  beforeEach(() => {
+    TestBed.overrideProvider(HuntService, { useValue: new MockHuntService() });
+    TestBed.configureTestingModule({
+    imports: [
+        ReactiveFormsModule,
+        MatSnackBarModule,
+        MatCardModule,
+        MatSelectModule,
+        MatInputModule,
+        BrowserAnimationsModule,
+        RouterTestingModule.withRoutes([
+            { path: 'host', component: HostComponent }
+        ]),
+        HttpClientTestingModule,
+        CreateHuntComponent, HostComponent
+    ],
+}).compileComponents().catch(error => {
+      expect(error).toBeNull();
+    });
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(CreateHuntComponent);
+    createHuntComponent = fixture.componentInstance;
+    huntService = TestBed.inject(HuntService);
+    location = TestBed.inject(Location);
+    // We need to inject the router and the HttpTestingController, but
+    // never need to use them. So, we can just inject them into the TestBed
+    // and ignore the returned values.
+    TestBed.inject(Router);
+    TestBed.inject(HttpTestingController);
+    fixture.detectChanges();
+  });
+
+  beforeEach(() => {
+    createHuntComponent.addHuntForm.controls.description.setValue('test description');
+    createHuntComponent.addHuntForm.controls.ownerId.setValue('test ownerId');
+    createHuntComponent.addHuntForm.controls.name.setValue('testName');
+  })
+
+  it('should call addHunt() and handle success response', fakeAsync(() => {
+    fixture.ngZone.run(() => {
+
+      const addTaskSpy = spyOn(huntService, 'addHunt').and.returnValue(of('1'));
+      createHuntComponent.submitForm();
+
+
+      expect(addTaskSpy).toHaveBeenCalledWith(createHuntComponent.addHuntForm.value);
+      tick();
+      expect(location.path()).toBe('/host')
+
+      flush();
+    });
+  }));
+
+});
