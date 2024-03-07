@@ -74,7 +74,19 @@ describe('HostComponent', () => {
    expect(hostComponent.serverFilteredHunts.length).toBe(3);
  });
 
+it('can search for all hunts with Id', () => {
+  const id1 = hostComponent.serverFilteredHunts[0]._id
+  hostComponent.seeHuntDetails(id1)
+  expect(hostComponent.huntChosen).toBe(hostComponent.serverFilteredHunts[0])
 
+  const id2 = hostComponent.serverFilteredHunts[1]._id
+  hostComponent.seeHuntDetails(id2)
+  expect(hostComponent.huntChosen).toBe(hostComponent.serverFilteredHunts[1])
+
+  const id3 = hostComponent.serverFilteredHunts[2]._id
+  hostComponent.seeHuntDetails(id3)
+  expect(hostComponent.huntChosen).toBe(hostComponent.serverFilteredHunts[2])
+})
 
 
 
